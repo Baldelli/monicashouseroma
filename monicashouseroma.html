@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Monicas House Roma</title>
+    <link rel="stylesheet" href="monicashouseroma.css">
+</head>
+<body id="body">
+  <div id="intestazione">
+    <h1 id="titolo">Monica's House Roma</h1>
+    <select id="lingua" onchange="selezionaLingua(this.value)">
+      <option value="it">🇮🇹 Italiano</option>
+      <option value="en">🇬🇧 English</option>
+      <option value="fr">🇫🇷 Français</option>
+      <option value="td">🇩🇪 Deutsch</option>
+      <option value="sp">🇪🇸 Español</option>
+      <option value="rs">🇷🇺 Russian (Latin)</option>
+      <option value="rsc">🇷🇺 Russian (Cyrillic)</option>
+    </select>
+  </div>
+    
+  <div id="categoria-selector" style="text-align:center; margin-top:10px;">
+    <label for="categoria">Seleziona categoria:</label>
+    <select id="categoria" onchange="selezionaCategoria(this.value)">
+      <option value="salone">Salone</option>
+      <option value="bagno">Bagno</option>
+    </select>
+  </div>
+
+    <div id="immagine">
+        <img id="carousel-img" src="foto1/TUSCOLANA 001.jpg" alt="Foto">
+        <div class="bottone">
+          <button onclick="immaginePrecedente()">← Immagine precedente </button>
+          <button onclick="cambiaImmagine()">Immagine successiva →</button>
+        </div>
+
+    </div>
+    <script>
+      const categorie = {
+        salone: [],
+        bagno: []
+      };
+
+      // Da 001 a 013
+      for (let i = 1; i <= 13; i++) {
+        const numero = i.toString().padStart(3, '0');
+        categorie.salone.push(`foto1/TUSCOLANA ${numero}.jpg`);
+      }
+
+      // Da 032 a 043
+      for (let i = 34; i <= 43; i++) {
+        const numero = i.toString().padStart(3, '0');
+        categorie.bagno.push(`Bagno/TUSCOLANA ${numero}.jpg`);
+      }
+      let categoriaSelezionata = "salone";
+      let indiceCorrente = 0;
+      
+      function selezionaCategoria(cat) {
+        categoriaSelezionata = cat;
+        indiceCorrente = 0;
+        document.getElementById("carousel-img").src = categorie[categoriaSelezionata][indiceCorrente];
+      }
+
+      function cambiaImmagine() {
+        const immagini = categorie[categoriaSelezionata];
+        indiceCorrente = (indiceCorrente + 1) % immagini.length;
+        document.getElementById("carousel-img").src = immagini[indiceCorrente];
+      }
+
+      function immaginePrecedente() {
+        const immagini = categorie[categoriaSelezionata];
+        indiceCorrente = (indiceCorrente - 1 + immagini.length) % immagini.length;
+        document.getElementById("carousel-img").src = immagini[indiceCorrente];
+      }
+    </script>
+    
+    <div id="descrizione">
+  
+      <!-- testi italiani -->
+      <h4 class="it">LUMINOSO APPARTAMENTO CON AMPIO TERRAZZO</h4>
+      <p class="it">
+        Rilassati in questo spazio tranquillo in una posizione centrale di Roma.<br>
+        Finemente ristrutturato nel 2025 a 50 metri dalla fermata della metro Re di Roma.<br>
+        Ideale per coppie.
+      </p>
+      <ul class="it">
+        <li>Cucina attrezzata</li>
+        <li>Wi-Fi gratuita</li>
+        <li>TV da 36 pollici</li>
+        <li>Lavatrice</li>
+        <li>Lavastoviglie</li>
+        <li>Asciugacapelli</li>
+        <li>Ferro da stiro</li>
+      </ul>
+      <p class="it">
+        Contatti:<br>
+        <a href="mailto:Monicashouseroma@gmail.com">Monicashouseroma@gmail.com</a>
+      </p>
+
+      <!-- testi inglesi -->
+      <h4 class="en">BRIGHT APARTMENT WITH LARGE TERRACE</h4>
+      <p class="en">
+        Relax in this quiet space in a central area of Rome.<br>
+        Fully renovated in 2025, just 50 meters from Re di Roma metro stop.<br>
+        Perfect for couples.
+      </p>
+      <ul class="en">
+        <li>Fully equipped kitchen</li>
+        <li>Free Wi-Fi</li>
+        <li>36-inch TV</li>
+        <li>Washing machine</li>
+        <li>Dishwasher</li>
+        <li>Hairdryer</li>
+        <li>Iron</li>
+      </ul>
+      <p class="en">
+        Contacts:<br>
+        <a href="mailto:Monicashouseroma@gmail.com">Monicashouseroma@gmail.com</a>
+      </p>
+
+      <!--- testi francesi -->
+      <h4 class="fr">APPARTEMENT LUMINEUX AVEC GRANDE TERRASSE</h4>
+      <p class="fr">
+        Détendez-vous dans cet espace calme dans un emplacement central à Rome.<br>
+        Finement rénové en 2025, à 50 mètres de la station de métro Re di Roma.<br>
+        Idéal pour les couples.
+      </p>
+      <ul class="fr">
+        <li>Cuisine équipée</li>
+        <li>Wi-Fi gratuit</li>
+        <li>Téléviseur 36 pouces</li>
+        <li>Machine à laver</li>
+        <li>Lave-vaisselle</li>
+        <li>Sèche-cheveux</li>
+        <li>Fer</li>
+      </ul>
+      <p class="fr">
+        Contacts:<br>
+        <a href="mailto:Monicashouseroma@gmail.com">Monicashouseroma@gmail.com</a>
+      </p>
+
+      <!-- testi tedesco --> 
+      <h4 class="td">HELLE WOHNUNG MIT GROSSER TERRASSE</h4>
+      <p class="td">
+        Entspannen Sie sich in diesem ruhigen Ort in zentraler Lage in Rom.<br>
+        Im Jahr 2025 fein renoviert, 50 Meter von der U-Bahn-Haltestelle Re di Roma entfernt.<br>
+        Ideal für Paare.
+      </p>
+      <ul class="td">
+        <li>Ausgestattete Küche</li>
+        <li>Kostenloses WLAN</li>
+        <li>36-Zoll-Fernseher</li>
+        <li>Waschmaschine</li>
+        <li>Spülmaschine</li>
+        <li>Fön</li>
+        <li>Eisen</li>
+      </ul>
+      <p class="td">
+        Kontakte:<br>
+        <a href="mailto:Monicashouseroma@gmail.com">Monicashouseroma@gmail.com</a>
+      </p>
+
+      <!-- testi spagnolo -->
+      <h4 class="sp">PISO LUMINOSO CON GRAN TERRAZA</h4>
+      <p class="sp">
+        Relájese en este espacio tranquilo en una ubicación central en Roma.<br>
+        Finamente renovado en 2025, a 50 metros de la parada de metro Re di Roma.<br>
+        Ideal para parejas.
+      </p>
+      <ul class="sp">
+        <li>Cocina equipada</li>
+        <li>Wi-Fi gratuito</li>
+        <li>Televisor de 36 pulgadas</li>
+        <li>Lavadora</li>
+        <li>Lavavajillas</li>
+        <li>Secador de pelo</li>
+        <li>Hierro</li>
+      </ul>
+      <p class="sp">
+        Contactos:<br>
+        <a href="mailto:Monicashouseroma@gmail.com">Monicashouseroma@gmail.com</a>
+      </p>
+
+      <!-- testi russo -->
+      <h4 class="rs">SVETLAYA KVARTIRA S BOL'SHOY TERRASOY</h4>
+      <p class="rs">
+        Otdokhnite v etom tikhom meste v tsentre Roma.<br>
+        Remont sdelan v 2025 godu, v 50 metrakh ot stantsii metro Re di Roma.<br>
+        Ideal'no podkhodit dlya par.
+      </p>
+      <ul class="rs">
+        <li>Oborudovannaya kukhnya</li>
+        <li>Besplatnyy Wi-Fi</li>
+        <li>36-dyuymovyy televizor</li>
+        <li>Stiral'naya mashina</li>
+        <li>Posudomoyechnaya mashina</li>
+        <li>Fen</li>
+        <li>Zhelezo</li>
+      </ul>
+      <p class="rs">
+        Kontakty:<br>
+        <a href="mailto:Monicashouseroma@gmail.com">Monicashouseroma@gmail.com</a>
+      </p>
+
+      <!-- testi russi cirillico -->
+      <h4 class="rsc">СВЕТЛАЯ КВАРТИРА С БОЛЬШОЙ ТЕРРАСОЙ</h4>
+      <p class="rsc">
+        Отдохните в этом тихом месте в центре Roma.<br>
+        Ремонт сделан в 2025 году, в 50 метрах от станции метро Re di Roma.<br>
+        Идеально подходит для пар.
+      </p>
+      <ul class="rsc">
+        <li>Оборудованная кухня</li>
+        <li>Бесплатный Wi-Fi</li>
+        <li>36-дюймовый телевизор</li>
+        <li>Стиральная машина</li>
+        <li>Посудомоечная машинa</li>
+        <li>Фен</li>
+        <li>a Утюr</li>
+      </ul>
+      <p class="rsc">
+        Contactos:<br>
+        <a href="mailto:Monicashouseroma@gmail.com">Monicashouseroma@gmail.com</a>
+      </p>
+    </div>
+    <script>
+      let lingua = "it";
+
+      const testi = {
+        it: {
+          precedente: "← Immagine precedente",
+          successiva: "Immagine successiva →",
+          categoria: "Seleziona categoria:",
+          salone: "Salone",
+          bagno: "Bagno"
+        },
+        en: {
+          precedente: "← Previous image",
+          successiva: "Next image →",
+          categoria: "Select category:",
+          salone: "Living room",
+          bagno: "Bathroom"
+        },
+        fr: {
+          precedente: "← Image précédente",
+          successiva: "Image suivante →",
+          categoria: "Sélectionnez la catégorie :",
+          salone: "Salon",
+          bagno: "Salle de bain"
+        },
+        td: {
+          precedente: "← Vorheriges Bild",
+          successiva: "Nächstes Bild →",
+          categoria: "Kategorie auswählen:",
+          salone: "Wohnzimmer",
+          bagno: "Badezimmer"
+        },
+        sp: {
+          precedente: "← Imagen anterior",
+          successiva: "Imagen siguiente →",
+          categoria: "Selecciona categoría:",
+          salone: "Salón",
+          bagno: "Baño"
+        },
+        rs: {
+          precedente: "← Predydushchaya kartinka",
+          successiva: "Sleduyushchaya kartinka →",
+          categoria: "Vyberite kategoriyu:",
+          salone: "Gostinaya",
+          bagno: "Vannaya"
+        },
+        rsc: {
+          precedente: "← Предыдущее изображение",
+          successiva: "Следующее изображение →",
+          categoria: "Выберите категорию:",
+          salone: "Гостиная",
+          bagno: "Ванная"
+        }
+      };
+
+
+      function selezionaLingua(lang) {
+        lingua = lang;
+        // Nasconde i testi
+        document.querySelectorAll(".it, .en, .fr, .td, .sp, .rs, .rsc").forEach(el => el.style.display = "none");
+
+        // Mostra solo la lingua corrente
+        document.querySelectorAll("." + lingua).forEach(el => el.style.display = "block");
+
+        // Aggiorna i testi dei bottoni e categorie
+        document.querySelector(".bottone button:first-child").innerText = testi[lingua].precedente;
+        document.querySelector(".bottone button:last-child").innerText = testi[lingua].successiva;
+        document.querySelector('label[for="categoria"]').innerText = testi[lingua].categoria;
+
+        const catSelect = document.getElementById("categoria");
+        catSelect.options[0].text = testi[lingua].salone;
+        catSelect.options[1].text = testi[lingua].bagno;
+      }
+
+      window.onload = () => {
+        selezionaLingua(lingua);
+        document.getElementById("lingua").value = lingua;
+        document.getElementById("carousel-img").src = categorie[categoriaSelezionata][0];
+      };
+
+    </script>
+</body>
+</html>

@@ -1,0 +1,50 @@
+#intestazione {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    margin: 0 30px;
+}
+#lingua {
+    font-size: 1em;
+    padding: 2px 6px;
+    cursor: pointer;
+    position: absolute;
+    right: 0;
+}
+#titolo{
+    font-size: 2em;
+    text-align: center;
+}
+#immagine{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+}
+.bottoni{
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+}
+
+#carousel-img{
+    width: 800px;
+    height: auto;
+    margin: 10px;
+}
+
+#descrizione{
+    margin: 10px auto;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    width: 600px;
+}
+
+#descrizione ul{
+    list-style-position: inside;
+    padding-left: 0;
+    margin: 0  auto;
+    text-align: left;
+}
