@@ -25,11 +25,14 @@
     <select id="categoria" onchange="selezionaCategoria(this.value)">
       <option value="salone">Salone</option>
       <option value="bagno">Bagno</option>
+      <option value="camera">Camera</option>
+      <option value="esterno">Esterno</option>
+      <option value="cucina">Cucina</option>
     </select>
   </div>
 
     <div id="immagine">
-        <img id="carousel-img" src="foto1/TUSCOLANA 001.jpg" alt="Foto">
+        <img id="carousel-img" src="Salone/TUSCOLANA 001.jpg" alt="Foto">
         <div class="bottone">
           <button onclick="immaginePrecedente()">← Immagine precedente </button>
           <button onclick="cambiaImmagine()">Immagine successiva →</button>
@@ -39,19 +42,40 @@
     <script>
       const categorie = {
         salone: [],
-        bagno: []
+        bagno: [],
+        camera: [],
+        esterno: [],
+        cucina: []
       };
 
-      // Da 001 a 013
-      for (let i = 1; i <= 13; i++) {
+      // Da 001 a 009 per esterno
+      for (let i = 1; i <= 9; i++) {
         const numero = i.toString().padStart(3, '0');
-        categorie.salone.push(`foto1/TUSCOLANA ${numero}.jpg`);
+        categorie.esterno.push(`Esterno/TUSCOLANA ${numero}.jpg`);
       }
 
-      // Da 032 a 043
-      for (let i = 34; i <= 41; i++) {
+      // Da 011 a 022 per camera
+      for (let i = 11; i <= 22; i++) {
+        const numero = i.toString().padStart(3, '0');
+        categorie.camera.push(`Camera/TUSCOLANA ${numero}.jpg`);
+      }
+
+      // Da 024 a 030 per salone
+      for (let i = 24; i <= 30; i++) {
+        const numero = i.toString().padStart(3, '0');
+        categorie.salone.push(`Salone/TUSCOLANA ${numero}.jpg`);
+      }
+
+      // Da 035 a 041 per bagno
+      for (let i = 35; i <= 41; i++) {
         const numero = i.toString().padStart(3, '0');
         categorie.bagno.push(`Bagno/TUSCOLANA ${numero}.jpg`);
+      }
+      
+      // Da 042 a 045 per cucina
+      for (let i = 42; i <= 45; i++) {
+        const numero = i.toString().padStart(3, '0');
+        categorie.cucina.push(`Cucina/TUSCOLANA ${numero}.jpg`);
       }
       let categoriaSelezionata = "salone";
       let indiceCorrente = 0;
@@ -233,49 +257,70 @@
           successiva: "Immagine successiva →",
           categoria: "Seleziona categoria:",
           salone: "Salone",
-          bagno: "Bagno"
+          bagno: "Bagno",
+          camera: "Camera",
+          esterno: "Esterno",
+          cucina: "Cucina"
         },
         en: {
           precedente: "← Previous image",
           successiva: "Next image →",
           categoria: "Select category:",
           salone: "Living room",
-          bagno: "Bathroom"
+          bagno: "Bathroom",
+          camera: "Bedroom",
+          esterno: "Outdoor",
+          cucina: "Kitchen"
         },
         fr: {
           precedente: "← Image précédente",
           successiva: "Image suivante →",
           categoria: "Sélectionnez la catégorie :",
           salone: "Salon",
-          bagno: "Salle de bain"
+          bagno: "Salle de bain",
+          camera: "Chambre",
+          esterno: "Extérieur",
+          cucina: "Cuisine"
         },
         td: {
           precedente: "← Vorheriges Bild",
           successiva: "Nächstes Bild →",
           categoria: "Kategorie auswählen:",
           salone: "Wohnzimmer",
-          bagno: "Badezimmer"
+          bagno: "Badezimmer",
+          camera: "Schlafzimmer",
+          esterno: "Außenbereich",
+          cucina: "Küche"
         },
         sp: {
           precedente: "← Imagen anterior",
           successiva: "Imagen siguiente →",
           categoria: "Selecciona categoría:",
           salone: "Salón",
-          bagno: "Baño"
+          bagno: "Baño",
+          camera: "Dormitorio",
+          esterno: "Exterior",
+          cucina: "Cocina"
         },
         rs: {
           precedente: "← Predydushchaya kartinka",
           successiva: "Sleduyushchaya kartinka →",
           categoria: "Vyberite kategoriyu:",
           salone: "Gostinaya",
-          bagno: "Vannaya"
+          bagno: "Vannaya",
+          camera: "Spalnya",
+          esterno: "Ulitsa",
+          cucina: "Kukhnya"
         },
         rsc: {
           precedente: "← Предыдущее изображение",
           successiva: "Следующее изображение →",
           categoria: "Выберите категорию:",
           salone: "Гостиная",
-          bagno: "Ванная"
+          bagno: "Ванная",
+          camera: "Спальня",
+          esterno: "Снаружи",
+          cucina: "Кухня"
         }
       };
 
@@ -296,6 +341,9 @@
         const catSelect = document.getElementById("categoria");
         catSelect.options[0].text = testi[lingua].salone;
         catSelect.options[1].text = testi[lingua].bagno;
+        catSelect.options[2].text = testi[lingua].camera;
+        catSelect.options[3].text = testi[lingua].esterno;
+        catSelect.options[4].text = testi[lingua].cucina;
       }
 
       window.onload = () => {
