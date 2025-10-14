@@ -19,7 +19,15 @@
       <option value="rsc">🇷🇺 Russian (Cyrillic)</option>
     </select>
   </div>
-    
+
+  <nav id="navbar">
+    <ul>
+      <li><a id="nav-home" href="#" onclick="mostraSezione('home'); return false;">Home</a></li>
+      <li><a id="nav-descrizione" href="#" onclick="mostraSezione('descrizione'); return false;">Descrizione</a></li>
+      <li><a id="nav-recensioni" href="#" onclick="mostraSezione('recensioni'); return false;">Recensioni</a></li>
+    </ul>
+  </nav>
+
   <div id="categoria-selector" style="text-align:center; margin-top:10px;">
     <label for="categoria">Seleziona categoria:</label>
     <select id="categoria" onchange="selezionaCategoria(this.value)">
@@ -31,14 +39,17 @@
     </select>
   </div>
 
-    <div id="immagine">
-        <img id="carousel-img" src="Salone/TUSCOLANA 001.jpg" alt="Foto">
-        <div class="bottone">
-          <button onclick="immaginePrecedente()">← Immagine precedente </button>
-          <button onclick="cambiaImmagine()">Immagine successiva →</button>
-        </div>
-
-    </div>
+    <div id="sezione-foto">
+      <div id="immagine">
+          <img id="carousel-img" src="Salone/TUSCOLANA 001.jpg" alt="Foto">
+          <div class="bottone">
+            <button onclick="immaginePrecedente()">← Immagine precedente </button>
+            <button onclick="cambiaImmagine()">Immagine successiva →</button>
+          </div>
+      </div>
+    </div> <!-- chiude sezione-foto -->
+    <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-firestore-compat.js"></script>
     <script>
       const categorie = {
         salone: [],
@@ -99,7 +110,8 @@
       }
     </script>
     
-    <div id="descrizione">
+    <div id="sezione-descrizione" style="display:none;">
+      <div id="descrizione">
   
       <!-- testi italiani -->
       <h4 class="it">LUMINOSO APPARTAMENTO CON AMPIO TERRAZZO</h4>
@@ -247,9 +259,64 @@
         Contactos:<br>
         <a href="mailto:Monicashouseroma@gmail.com">Monicashouseroma@gmail.com</a>
       </p>
+    </div> <!-- chiude descrizione -->
+  </div> <!-- chiude sezione-descrizione -->
+
+  <div id="sezione-recensioni" style="display:none;">
+    <div class="recensioni">
+      <div class="review-source">
+        <a id="btn-airbnb" class="btn" href="https://www.airbnb.it/users/show/675653193" target="_blank" rel="noopener">Leggi tutte le recensioni su Airbnb ↗</a>
+      </div>
+      <div class="elfsight-app-REPLACE_WITH_YOUR_APP_ID"></div>
+      <h3>Recensioni</h3>
+      <form id="review-form" class="review-form" onsubmit="inviaRecensione(event)">
+        <div class="form-row">
+          <label for="rev-name" id="lbl-rev-name">Nome</label>
+          <input type="text" id="rev-name" name="name" required maxlength="50" placeholder="Il tuo nome" />
+        </div>
+        <div class="form-row">
+          <span id="lbl-rev-rating">Valutazione</span>
+          <div class="stars" id="rev-stars" aria-label="Valutazione da 1 a 5">
+            <button type="button" data-val="1" aria-label="1">★</button>
+            <button type="button" data-val="2" aria-label="2">★</button>
+            <button type="button" data-val="3" aria-label="3">★</button>
+            <button type="button" data-val="4" aria-label="4">★</button>
+            <button type="button" data-val="5" aria-label="5">★</button>
+            <input type="hidden" id="rev-rating" name="rating" value="5" />
+          </div>
+        </div>
+        <div class="form-row">
+          <label for="rev-text" id="lbl-rev-text">La tua recensione</label>
+          <textarea id="rev-text" name="text" rows="4" required maxlength="500" placeholder="Racconta la tua esperienza…"></textarea>
+          <div class="char-counter" id="rev-counter">0/500</div>
+        </div>
+        <!-- honeypot anti-spam -->
+        <input type="text" id="rev-website" name="website" style="display:none" tabindex="-1" autocomplete="off" />
+        <div class="form-row">
+          <button class="btn" id="btn-rev-submit" type="submit">Invia recensione</button>
+        </div>
+        <p class="form-note" id="rev-privacy">Inviando, accetti che la recensione sia mostrata pubblicamente. Nessun dato viene condiviso con terze parti.</p>
+        <p class="form-success" id="rev-success" style="display:none;">Grazie! La tua recensione è stata aggiunta.</p>
+      </form>
+
+      <div id="reviews-list" class="reviews-list"></div>
     </div>
+  </div>
     <script>
       let lingua = "it";
+
+            // ---- Firebase config & init ----
+            const firebaseConfig = {
+        apiKey: "AIzaSyCaEmqB9Xxn5DpEKf63u1GQstNU3VIg-xc",
+        authDomain: "monicashouse-5da13.firebaseapp.com",
+        projectId: "monicashouse-5da13",
+        storageBucket: "monicashouse-5da13.appspot.com",
+        messagingSenderId: "133275293239",
+        appId: "1:133275293239:web:2d3ff47fb2e852533611b2",
+        measurementId: "G-08PNL2X62"
+      };
+      const app = firebase.initializeApp(firebaseConfig);
+      const db = firebase.firestore();
 
       const testi = {
         it: {
@@ -260,7 +327,18 @@
           bagno: "Bagno",
           camera: "Camera",
           esterno: "Esterno",
-          cucina: "Cucina"
+          cucina: "Cucina",
+          nav_home: "Home",
+          nav_descrizione: "Descrizione",
+          nav_recensioni: "Recensioni",
+          airbnb_btn: "Leggi tutte le recensioni su Airbnb ↗",
+          rev_name: "Nome",
+          rev_rating: "Valutazione",
+          rev_text: "La tua recensione",
+          rev_placeholder: "Racconta la tua esperienza…",
+          rev_submit: "Invia recensione",
+          rev_privacy: "Inviando, accetti che la recensione sia mostrata pubblicamente. Nessun dato viene condiviso con terze parti.",
+          rev_success: "Grazie! La tua recensione è stata aggiunta."
         },
         en: {
           precedente: "← Previous image",
@@ -270,7 +348,18 @@
           bagno: "Bathroom",
           camera: "Bedroom",
           esterno: "Outdoor",
-          cucina: "Kitchen"
+          cucina: "Kitchen",
+          nav_home: "Home",
+          nav_descrizione: "Description",
+          nav_recensioni: "Reviews",
+          airbnb_btn: "Read all reviews on Airbnb ↗",
+          rev_name: "Name",
+          rev_rating: "Rating",
+          rev_text: "Your review",
+          rev_placeholder: "Share your experience…",
+          rev_submit: "Send review",
+          rev_privacy: "By sending, you agree your review may be shown publicly. No data is shared with third parties.",
+          rev_success: "Thanks! Your review has been added."
         },
         fr: {
           precedente: "← Image précédente",
@@ -280,7 +369,18 @@
           bagno: "Salle de bain",
           camera: "Chambre",
           esterno: "Extérieur",
-          cucina: "Cuisine"
+          cucina: "Cuisine",
+          nav_home: "Accueil",
+          nav_descrizione: "Description",
+          nav_recensioni: "Avis",
+          airbnb_btn: "Lire tous les avis sur Airbnb ↗",
+          rev_name: "Nom",
+          rev_rating: "Note",
+          rev_text: "Votre avis",
+          rev_placeholder: "Partagez votre expérience…",
+          rev_submit: "Envoyer l’avis",
+          rev_privacy: "En envoyant, vous acceptez que l’avis soit affiché publiquement. Aucune donnée partagée avec des tiers.",
+          rev_success: "Merci ! Votre avis a été ajouté."
         },
         td: {
           precedente: "← Vorheriges Bild",
@@ -290,7 +390,18 @@
           bagno: "Badezimmer",
           camera: "Schlafzimmer",
           esterno: "Außenbereich",
-          cucina: "Küche"
+          cucina: "Küche",
+          nav_home: "Startseite",
+          nav_descrizione: "Beschreibung",
+          nav_recensioni: "Bewertungen",
+          airbnb_btn: "Alle Bewertungen auf Airbnb lesen ↗",
+          rev_name: "Name",
+          rev_rating: "Bewertung",
+          rev_text: "Ihre Rezension",
+          rev_placeholder: "Teilen Sie Ihre Erfahrung…",
+          rev_submit: "Rezension senden",
+          rev_privacy: "Mit dem Senden stimmen Sie der öffentlichen Anzeige zu. Keine Daten an Dritte weitergegeben.",
+          rev_success: "Danke! Ihre Rezension wurde hinzugefügt."
         },
         sp: {
           precedente: "← Imagen anterior",
@@ -300,7 +411,18 @@
           bagno: "Baño",
           camera: "Dormitorio",
           esterno: "Exterior",
-          cucina: "Cocina"
+          cucina: "Cocina",
+          nav_home: "Inicio",
+          nav_descrizione: "Descripción",
+          nav_recensioni: "Reseñas",
+          airbnb_btn: "Leer todas las reseñas en Airbnb ↗",
+          rev_name: "Nombre",
+          rev_rating: "Valoración",
+          rev_text: "Tu reseña",
+          rev_placeholder: "Comparte tu experiencia…",
+          rev_submit: "Enviar reseña",
+          rev_privacy: "Al enviar, aceptas que la reseña se muestre públicamente. No se comparten datos con terceros.",
+          rev_success: "¡Gracias! Tu reseña ha sido añadida."
         },
         rs: {
           precedente: "← Predydushchaya kartinka",
@@ -310,7 +432,18 @@
           bagno: "Vannaya",
           camera: "Spalnya",
           esterno: "Ulitsa",
-          cucina: "Kukhnya"
+          cucina: "Kukhnya",
+          nav_home: "Domoy",
+          nav_descrizione: "Opisaniye",
+          nav_recensioni: "Otzivy",
+          airbnb_btn: "Prochitat' vse otzyvy na Airbnb ↗",
+          rev_name: "Imya",
+          rev_rating: "Ocenka",
+          rev_text: "Vash otzyv",
+          rev_placeholder: "Podelites' opytom…",
+          rev_submit: "Otdat' otzyv",
+          rev_privacy: "Otpravlyaya, vy soglashaetes', chto otzyv budet publichnym. Dannyye ne peredayutsya tretym litsam.",
+          rev_success: "Spasibo! Vash otzyv dobavlen."
         },
         rsc: {
           precedente: "← Предыдущее изображение",
@@ -320,7 +453,18 @@
           bagno: "Ванная",
           camera: "Спальня",
           esterno: "Снаружи",
-          cucina: "Кухня"
+          cucina: "Кухня",
+          nav_home: "Домой",
+          nav_descrizione: "Описание",
+          nav_recensioni: "Отзывы",
+          airbnb_btn: "Прочитать все отзывы на Airbnb ↗",
+          rev_name: "Имя",
+          rev_rating: "Оценка",
+          rev_text: "Ваш отзыв",
+          rev_placeholder: "Поделитесь своим опытом…",
+          rev_submit: "Отправить отзыв",
+          rev_privacy: "Отправляя, вы соглашаетесь на публичное размещение отзыва. Данные не передаются третьим лицам.",
+          rev_success: "Спасибо! Ваш отзыв добавлен."
         }
       };
 
@@ -338,20 +482,177 @@
         document.querySelector(".bottone button:last-child").innerText = testi[lingua].successiva;
         document.querySelector('label[for="categoria"]').innerText = testi[lingua].categoria;
 
+        const btnAirbnb = document.getElementById("btn-airbnb");
+        if (btnAirbnb) btnAirbnb.innerText = testi[lingua].airbnb_btn;
+
         const catSelect = document.getElementById("categoria");
         catSelect.options[0].text = testi[lingua].salone;
         catSelect.options[1].text = testi[lingua].bagno;
         catSelect.options[2].text = testi[lingua].camera;
         catSelect.options[3].text = testi[lingua].esterno;
         catSelect.options[4].text = testi[lingua].cucina;
+        document.getElementById("nav-home").innerText = testi[lingua].nav_home;
+        document.getElementById("nav-descrizione").innerText = testi[lingua].nav_descrizione;
+        document.getElementById("nav-recensioni").innerText = testi[lingua].nav_recensioni;
+        // Localizza form recensioni
+        const lblName = document.getElementById('lbl-rev-name');
+        const lblRating = document.getElementById('lbl-rev-rating');
+        const lblText = document.getElementById('lbl-rev-text');
+        const nameInput = document.getElementById('rev-name');
+        const textInput = document.getElementById('rev-text');
+        const btnSubmit = document.getElementById('btn-rev-submit');
+        const pPrivacy = document.getElementById('rev-privacy');
+        const pSuccess = document.getElementById('rev-success');
+        if (lblName) lblName.innerText = testi[lingua].rev_name;
+        if (lblRating) lblRating.innerText = testi[lingua].rev_rating;
+        if (lblText) lblText.innerText = testi[lingua].rev_text;
+        if (nameInput) nameInput.placeholder = testi[lingua].rev_name;
+        if (textInput) textInput.placeholder = testi[lingua].rev_placeholder;
+        if (btnSubmit) btnSubmit.innerText = testi[lingua].rev_submit;
+        if (pPrivacy) pPrivacy.innerText = testi[lingua].rev_privacy;
+        if (pSuccess) pSuccess.innerText = testi[lingua].rev_success;
       }
 
       window.onload = () => {
         selezionaLingua(lingua);
         document.getElementById("lingua").value = lingua;
-        document.getElementById("carousel-img").src = categorie[categoriaSelezionata][0];
+        const selezione = document.getElementById("categoria").value;
+        selezionaCategoria(selezione);
+        mostraSezione('home');
       };
 
+      function sanitize(str) {
+        return (str || '').toString().replace(/[<>]/g, '');
+      }
+      function linguaToLocale(l) {
+        const map = { it: 'it-IT', en: 'en-GB', fr: 'fr-FR', td: 'de-DE', sp: 'es-ES', rs: 'ru-RU', rsc: 'ru-RU' };
+        return map[l] || 'it-IT';
+      }
+      function formatReviewDate(ts) {
+        try {
+          const d = ts && typeof ts.toDate === 'function' ? ts.toDate() : (ts ? new Date(ts) : null);
+          if (!d || isNaN(d)) return '';
+          return d.toLocaleDateString(linguaToLocale(lingua), { year: 'numeric', month: 'short', day: '2-digit' });
+        } catch (_) { return ''; }
+      }
+      async function renderReviews() {
+        const container = document.getElementById('reviews-list');
+        if (!container) return;
+        container.innerHTML = '';
+        try {
+          const snap = await db.collection('reviews').orderBy('created_at', 'desc').get();
+          snap.forEach(doc => {
+            const r = doc.data();
+            const stars = '★'.repeat(r.rating || 0) + '☆'.repeat(5 - (r.rating || 0));
+            const card = document.createElement('div');
+            card.className = 'review-card';
+            const dateTxt = formatReviewDate(r.created_at);
+            card.innerHTML = `
+              <p class="review-text">${sanitize(r.text)}</p>
+              <p class="review-author">— ${sanitize(r.name)} · ${stars}${dateTxt ? ' · ' + dateTxt : ''}</p>
+            `;
+            container.appendChild(card);
+          });
+        } catch (err) {
+          console.error('Errore nel caricamento recensioni:', err);
+        }
+      }
+      function bindStars() {
+        const wrap = document.getElementById('rev-stars');
+        if (!wrap) return;
+        const buttons = wrap.querySelectorAll('button[data-val]');
+        const input = document.getElementById('rev-rating');
+        const setActive = (val) => {
+          buttons.forEach(b => {
+            const on = Number(b.dataset.val) <= val;
+            b.classList.toggle('active', on);
+            b.setAttribute('aria-pressed', on ? 'true' : 'false');
+          });
+        };
+        buttons.forEach(b => {
+          b.addEventListener('click', () => {
+            const val = Number(b.dataset.val);
+            input.value = val;
+            setActive(val);
+            wrap.setAttribute('aria-label', `Valutazione: ${val} su 5`);
+          });
+        });
+        setActive(Number(input.value || 5));
+      }
+      async function inviaRecensione(e) {
+        e.preventDefault();
+        const hp = document.getElementById('rev-website');
+        if (hp && hp.value) return; // honeypot
+        const name = document.getElementById('rev-name').value.trim();
+        const rating = Math.max(1, Math.min(5, Number(document.getElementById('rev-rating').value || 5)));
+        const text = document.getElementById('rev-text').value.trim();
+        if (!name || !text) return;
+        try {
+          await db.collection('reviews').add({
+            name,
+            rating,
+            text,
+            created_at: firebase.firestore.FieldValue.serverTimestamp()
+          });
+          document.getElementById('review-form').reset();
+          document.getElementById('rev-rating').value = 5;
+          bindStars();
+          const success = document.getElementById('rev-success');
+          if (success) { success.style.display = 'block'; setTimeout(()=> success.style.display='none', 4000); }
+          renderReviews();
+        } catch (err) {
+          console.error('Errore durante il salvataggio:', err);
+          alert('Errore durante l\'invio della recensione.');
+        }
+      }
+      const txtArea = document.getElementById('rev-text');
+      if (txtArea) {
+        txtArea.addEventListener('input', () => {
+          const c = document.getElementById('rev-counter');
+          if (c) c.innerText = `${txtArea.value.length}/500`;
+        });
+      }
+      function cancellaRecensioni() {
+        alert('Le recensioni ora sono salvate su Firebase Firestore. Per cancellarle definitivamente usa la Console Firebase (Firestore → raccolta "reviews").');
+      }
+
+      // init widgets when page loads
+      document.addEventListener('DOMContentLoaded', () => {
+        bindStars();
+        const btnClear = document.getElementById('btn-rev-clear');
+        if (btnClear) btnClear.style.display = 'none';
+        renderReviews();
+      });
+
     </script>
+      <div id="contatti-fissi" style="text-align: center; margin-top: 20px;">
+        <p>Contatti:<br>
+          <a href="mailto:Monicashouseroma@gmail.com">Monicashouseroma@gmail.com</a>
+        </p>
+      </div>
+      <script>
+        function mostraSezione(sezione) {
+          const mappa = {
+            home: 'sezione-foto',
+            foto: 'sezione-foto',
+            descrizione: 'sezione-descrizione',
+            recensioni: 'sezione-recensioni'
+          };
+
+          const sezioni = ['sezione-foto', 'sezione-descrizione', 'sezione-recensioni'];
+          sezioni.forEach(id => {
+            const el = document.getElementById(id);
+            if (el) el.style.display = 'none';
+          });
+
+          const targetId = mappa[sezione] || 'sezione-foto';
+          const target = document.getElementById(targetId);
+          if (target) target.style.display = 'block';
+          const catSel = document.getElementById("categoria-selector");
+          if (catSel) {
+            catSel.style.display = (targetId === 'sezione-foto') ? 'block' : 'none';
+          }
+        }
+      </script>
 </body>
 </html>
