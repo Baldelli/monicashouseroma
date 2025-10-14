@@ -318,6 +318,31 @@
       const app = firebase.initializeApp(firebaseConfig);
       const db = firebase.firestore();
 
+      // ---- Page view counter (hidden; logs only if admin flag is set locally) ----
+      function isAdminViewer() {
+        // Abilita i log solo per te eseguendo in console:
+        // localStorage.setItem('mh_admin', '1')
+        try { return localStorage.getItem('mh_admin') === '1'; } catch (_) { return false; }
+      }
+
+async function trackPageView() {
+  try {
+    const ref = db.collection('metrics').doc('pageViews');
+    await ref.set({
+      count: firebase.firestore.FieldValue.increment(1),
+      last: firebase.firestore.FieldValue.serverTimestamp()
+    }, { merge: true });
+
+    if (isAdminViewer()) {
+      const snap = await ref.get();
+      const c = (snap.exists && snap.data().count) ? snap.data().count : 0;
+      console.log(`[Monica's House] Page views totali: ${c}`);
+    }
+  } catch (e) {
+    if (isAdminViewer()) console.warn('Counter error:', e);
+  }
+}
+
       const testi = {
         it: {
           precedente: "← Immagine precedente",
@@ -622,6 +647,7 @@
         const btnClear = document.getElementById('btn-rev-clear');
         if (btnClear) btnClear.style.display = 'none';
         renderReviews();
+        trackPageView();
       });
 
     </script>
