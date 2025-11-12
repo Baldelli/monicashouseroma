@@ -52,6 +52,8 @@
     align-items: center;
     position: relative;
     margin: 0 30px;
+    width: 100%;
+    gap: 6px;
 }
 #lingua {
     font-size: 1em;
@@ -63,6 +65,7 @@
 #titolo{
     font-size: 2em;
     text-align: center;
+    margin: 0;
 }
 #cin{
     display: flex;
@@ -70,6 +73,7 @@
     font-size: 2em;
     text-align: center;
     margin-top: 10px;
+    margin: 0;
 }
 #immagine{
     display: flex;
