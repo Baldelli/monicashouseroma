@@ -170,3 +170,8 @@
 .btn:hover {
     background: #f6f6f6;
 }
+
+#titolo, #cin {
+    display: block;
+    width: 100%;
+}
