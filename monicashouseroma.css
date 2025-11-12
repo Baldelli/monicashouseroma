@@ -47,6 +47,7 @@
 .reviews-list { margin-top: 12px; }
 #intestazione {
     display: flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
     position: relative;
