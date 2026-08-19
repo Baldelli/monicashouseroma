@@ -412,11 +412,13 @@
       const app = firebase.initializeApp(firebaseConfig);
       const db = firebase.firestore();
       const auth = firebase.auth();
-      const ADMIN_UID = 'yohqddSkMnUss3B7H6gdRrgnjnq1';
-
+      const ADMIN_UIDS = [
+        'n7bskIQ8w7Y9i3KWd0j6YTXnOL32',
+        'kLQGFxzjYcQVsH3pFkqgY1Ianyz1'
+      ];
       // ---- Page view counter (hidden; logs only if admin flag is set locally) ----
       function isAdminViewer() {
-        return !!auth.currentUser && auth.currentUser.uid === ADMIN_UID;
+        return !!auth.currentUser && ADMIN_UIDS.includes(auth.currentUser.uid);
       }
 
 async function trackPageView() {
@@ -918,6 +920,8 @@ async function loadAdminDashboard() {
         if (!container) return;
 
         container.innerHTML = '';
+        const renderToken = Symbol('reviews-render');
+        container._reviewsRenderToken = renderToken;
 
         try {
           const snap = await db.collection('reviews').orderBy('created_at', 'desc').get();
@@ -975,13 +979,13 @@ async function loadAdminDashboard() {
             container.appendChild(card);
           });
 
-          if (!renderedCount) {
+          if (!renderedCount && container._reviewsRenderToken === renderToken) {
             const empty = document.createElement('div');
             empty.className = 'reviews-empty';
             empty.innerHTML = admin
               ? '<p>Non ci sono recensioni da moderare.</p>'
               : '<p>Non ci sono ancora recensioni pubblicate. Sii il primo a raccontare la tua esperienza.</p>';
-            container.appendChild(empty);
+            container.replaceChildren(empty);
           }
 
           const average = publicReviewCount ? totalRating / publicReviewCount : 0;
@@ -1341,7 +1345,7 @@ async function loadAdminDashboard() {
         if (btnLogout) btnLogout.addEventListener('click', adminLogout);
 
         auth.onAuthStateChanged((user) => {
-          const isAdmin = !!user && user.uid === ADMIN_UID;
+          const isAdmin = !!user && ADMIN_UIDS.includes(user.uid);
           if (btnLogin) btnLogin.style.display = isAdmin ? 'none' : 'inline-block';
           if (btnLogout) btnLogout.style.display = isAdmin ? 'inline-block' : 'none';
           const box = document.getElementById('admin-import');
@@ -1814,7 +1818,7 @@ async function importBookingsFromWorkbook(wb){
 
       auth.signInWithEmailAndPassword(email.trim(), password)
         .then(async (credential) => {
-          if (!credential.user || credential.user.uid !== ADMIN_UID) {
+          if (!credential.user || !ADMIN_UIDS.includes(credential.user.uid)) {
             await auth.signOut();
             throw new Error('Utente non autorizzato come amministratore.');
           }
