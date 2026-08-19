@@ -1,15 +1,23 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="it">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Monicas House Roma</title>
+    <meta name="description" content="Monica's House Roma: appartamento luminoso con terrazzo privato vicino alla Metro A Re di Roma. Verifica disponibilità e richiedi il tuo soggiorno.">
+    <meta name="robots" content="index,follow">
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="Monica's House Roma">
+    <meta property="og:description" content="Appartamento con terrazzo privato a pochi passi dalla Metro A Re di Roma.">
+    <meta property="og:image" content="Esterno/TUSCOLANA 001.jpg">
+    <meta property="og:locale" content="it_IT">
+    <meta name="twitter:card" content="summary_large_image">
+    <link rel="preload" as="image" href="Esterno/TUSCOLANA 001.jpg">
     <link rel="stylesheet" href="monicashouseroma.css">
 </head>
 <body id="body">
   <div id="intestazione">
     <h1 id="titolo">Monica's House Roma</h1>
-    <p id="cin">CIN ITO58091C2TV8YA317</p>
     <select id="lingua" onchange="selezionaLingua(this.value)">
       <option value="it">🇮🇹 Italiano</option>
       <option value="en">🇬🇧 English</option>
@@ -26,31 +34,63 @@
       <li><a id="nav-home" href="#" onclick="mostraSezione('home'); return false;">Home</a></li>
       <li><a id="nav-descrizione" href="#" onclick="mostraSezione('descrizione'); return false;">Descrizione</a></li>
       <li><a id="nav-recensioni" href="#" onclick="mostraSezione('recensioni'); return false;">Recensioni</a></li>
+      <li><a id="nav-prenotati" href="#" onclick="mostraSezione('prenotati'); return false;">Prenotati</a></li>
     </ul>
   </nav>
 
-  <div id="categoria-selector" style="text-align:center; margin-top:10px;">
-    <label for="categoria">Seleziona categoria:</label>
-    <select id="categoria" onchange="selezionaCategoria(this.value)">
-      <option value="salone">Salone</option>
-      <option value="bagno">Bagno</option>
-      <option value="camera">Camera</option>
-      <option value="esterno">Esterno</option>
-      <option value="cucina">Cucina</option>
-    </select>
-  </div>
-
-    <div id="sezione-foto">
-      <div id="immagine">
-          <img id="carousel-img" src="Salone/TUSCOLANA 001.jpg" alt="Foto">
-          <div class="bottone">
-            <button onclick="immaginePrecedente()">← Immagine precedente </button>
-            <button onclick="cambiaImmagine()">Immagine successiva →</button>
-          </div>
+  <main id="sezione-foto">
+    <section class="hero" aria-labelledby="hero-title">
+      <img id="hero-img" src="Esterno/TUSCOLANA 001.jpg" alt="Terrazzo di Monica's House Roma" fetchpriority="high" decoding="async">
+      <div class="hero-overlay"></div>
+      <div class="hero-content">
+        <p class="hero-kicker">MONICA'S HOUSE ROMA</p>
+        <h2 id="hero-title">Il tuo soggiorno nel cuore di Roma</h2>
+        <p id="hero-subtitle">Un appartamento luminoso con terrazzo privato, a pochi passi dalla Metro A.</p>
+        <div class="hero-actions">
+          <button id="hero-book" class="btn btn-primary" type="button" onclick="mostraSezione('prenotati')">Controlla disponibilità</button>
+          <button id="hero-discover" class="btn btn-secondary" type="button" onclick="mostraSezione('descrizione')">Scopri l'appartamento</button>
+        </div>
       </div>
-    </div> <!-- chiude sezione-foto -->
+    </section>
+
+    <section class="highlights" aria-label="Punti di forza">
+      <article class="highlight-card"><span class="highlight-icon" aria-hidden="true">🚇</span><div><strong id="highlight-metro-title">Metro vicinissima</strong><p id="highlight-metro-text">Re di Roma a circa 50 metri</p></div></article>
+      <article class="highlight-card"><span class="highlight-icon" aria-hidden="true">☀️</span><div><strong id="highlight-terrace-title">Terrazzo privato</strong><p id="highlight-terrace-text">Uno spazio esterno ampio e tranquillo</p></div></article>
+      <article class="highlight-card"><span class="highlight-icon" aria-hidden="true">✨</span><div><strong id="highlight-renovated-title">Ristrutturato nel 2025</strong><p id="highlight-renovated-text">Ambienti moderni, luminosi e curati</p></div></article>
+      <article class="highlight-card"><span class="highlight-icon" aria-hidden="true">❤️</span><div><strong id="highlight-couples-title">Ideale per coppie</strong><p id="highlight-couples-text">Comfort e privacy per il tuo soggiorno</p></div></article>
+    </section>
+
+    <section class="gallery-section" aria-labelledby="gallery-title">
+      <div class="section-heading">
+        <p id="gallery-eyebrow" class="section-eyebrow">GALLERIA</p>
+        <h2 id="gallery-title">Scopri gli ambienti</h2>
+      </div>
+
+      <div id="categoria-selector" class="category-selector">
+        <label for="categoria">Seleziona categoria:</label>
+        <select id="categoria" onchange="selezionaCategoria(this.value)">
+          <option value="salone">Salone</option>
+          <option value="bagno">Bagno</option>
+          <option value="camera">Camera</option>
+          <option value="esterno">Esterno</option>
+          <option value="cucina">Cucina</option>
+        </select>
+      </div>
+
+      <div id="immagine" class="gallery-viewer">
+        <div class="image-frame">
+          <img id="carousel-img" src="Salone/TUSCOLANA 024.jpg" alt="Foto dell'appartamento" loading="lazy" decoding="async">
+          <button class="gallery-arrow gallery-arrow-left" type="button" onclick="immaginePrecedente()" aria-label="Immagine precedente">‹</button>
+          <button class="gallery-arrow gallery-arrow-right" type="button" onclick="cambiaImmagine()" aria-label="Immagine successiva">›</button>
+          <span id="image-counter" class="image-counter">1 / 7</span>
+        </div>
+      </div>
+    </section>
+  </main>
     <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-auth-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-firestore-compat.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js"></script>
     <script>
       const categorie = {
         salone: [],
@@ -92,255 +132,379 @@
       let categoriaSelezionata = "salone";
       let indiceCorrente = 0;
       
+      function aggiornaContatoreImmagini() {
+        const counter = document.getElementById('image-counter');
+        const immagini = categorie[categoriaSelezionata];
+        if (counter && immagini.length) {
+          counter.textContent = `${indiceCorrente + 1} / ${immagini.length}`;
+        }
+      }
+
       function selezionaCategoria(cat) {
         categoriaSelezionata = cat;
         indiceCorrente = 0;
         document.getElementById("carousel-img").src = categorie[categoriaSelezionata][indiceCorrente];
+        aggiornaContatoreImmagini();
       }
 
       function cambiaImmagine() {
         const immagini = categorie[categoriaSelezionata];
         indiceCorrente = (indiceCorrente + 1) % immagini.length;
         document.getElementById("carousel-img").src = immagini[indiceCorrente];
+        aggiornaContatoreImmagini();
       }
 
       function immaginePrecedente() {
         const immagini = categorie[categoriaSelezionata];
         indiceCorrente = (indiceCorrente - 1 + immagini.length) % immagini.length;
         document.getElementById("carousel-img").src = immagini[indiceCorrente];
+        aggiornaContatoreImmagini();
       }
     </script>
     
-    <div id="sezione-descrizione" style="display:none;">
-      <div id="descrizione">
-  
-      <!-- testi italiani -->
-      <h4 class="it">LUMINOSO APPARTAMENTO CON AMPIO TERRAZZO</h4>
-      <p class="it">
-        Rilassati in questo spazio tranquillo in una posizione centrale di Roma.<br>
-        Finemente ristrutturato nel 2025 a 50 metri dalla fermata della metro Re di Roma.<br>
-        Ideale per coppie.
-      </p>
-      <ul class="it">
-        <li>Cucina attrezzata</li>
-        <li>Wi-Fi gratuita</li>
-        <li>TV da 36 pollici</li>
-        <li>Lavatrice</li>
-        <li>Lavastoviglie</li>
-        <li>Asciugacapelli</li>
-        <li>Ferro da stiro</li>
-      </ul>
-      <p class="it">
-        Contatti:<br>
-        <a href="mailto:Monicashouseroma@gmail.com">Monicashouseroma@gmail.com</a>
-      </p>
+  <div id="sezione-descrizione" style="display:none;">
+    <section class="description-section" aria-labelledby="description-title">
+      <div class="section-heading">
+        <p id="description-eyebrow" class="section-eyebrow">L'APPARTAMENTO</p>
+        <h2 id="description-title">Un appartamento pensato per il tuo soggiorno a Roma</h2>
+        <p id="description-intro" class="section-intro">Spazi luminosi, comfort moderni e una posizione strategica a pochi passi dalla Metro A.</p>
+      </div>
 
-      <!-- testi inglesi -->
-      <h4 class="en">BRIGHT APARTMENT WITH LARGE TERRACE</h4>
-      <p class="en">
-        Relax in this quiet space in a central area of Rome.<br>
-        Fully renovated in 2025, just 50 meters from Re di Roma metro stop.<br>
-        Perfect for couples.
-      </p>
-      <ul class="en">
-        <li>Fully equipped kitchen</li>
-        <li>Free Wi-Fi</li>
-        <li>36-inch TV</li>
-        <li>Washing machine</li>
-        <li>Dishwasher</li>
-        <li>Hairdryer</li>
-        <li>Iron</li>
-      </ul>
-      <p class="en">
-        Contacts:<br>
-        <a href="mailto:Monicashouseroma@gmail.com">Monicashouseroma@gmail.com</a>
-      </p>
+      <div class="description-layout">
+        <div class="description-media">
+          <img src="Camera/TUSCOLANA 011.jpg" alt="Camera luminosa di Monica's House Roma" loading="lazy" decoding="async">
+          <div class="description-media-small">
+            <img src="Cucina/TUSCOLANA 042.jpg" alt="Cucina attrezzata" loading="lazy" decoding="async">
+            <img src="Esterno/TUSCOLANA 001.jpg" alt="Terrazzo privato" loading="lazy" decoding="async">
+          </div>
+        </div>
 
-      <!--- testi francesi -->
-      <h4 class="fr">APPARTEMENT LUMINEUX AVEC GRANDE TERRASSE</h4>
-      <p class="fr">
-        Détendez-vous dans cet espace calme dans un emplacement central à Rome.<br>
-        Finement rénové en 2025, à 50 mètres de la station de métro Re di Roma.<br>
-        Idéal pour les couples.
-      </p>
-      <ul class="fr">
-        <li>Cuisine équipée</li>
-        <li>Wi-Fi gratuit</li>
-        <li>Téléviseur 36 pouces</li>
-        <li>Machine à laver</li>
-        <li>Lave-vaisselle</li>
-        <li>Sèche-cheveux</li>
-        <li>Fer</li>
-      </ul>
-      <p class="fr">
-        Contacts:<br>
-        <a href="mailto:Monicashouseroma@gmail.com">Monicashouseroma@gmail.com</a>
-      </p>
+        <div class="description-content">
+          <div class="description-copy">
+            <h3 id="description-copy-title">Comfort, tranquillità e collegamenti rapidi</h3>
+            <p id="description-copy-text">L'appartamento è stato ristrutturato nel 2025 ed è ideale per chi desidera vivere Roma con comodità, senza rinunciare a privacy e relax.</p>
+          </div>
 
-      <!-- testi tedesco --> 
-      <h4 class="td">HELLE WOHNUNG MIT GROSSER TERRASSE</h4>
-      <p class="td">
-        Entspannen Sie sich in diesem ruhigen Ort in zentraler Lage in Rom.<br>
-        Im Jahr 2025 fein renoviert, 50 Meter von der U-Bahn-Haltestelle Re di Roma entfernt.<br>
-        Ideal für Paare.
-      </p>
-      <ul class="td">
-        <li>Ausgestattete Küche</li>
-        <li>Kostenloses WLAN</li>
-        <li>36-Zoll-Fernseher</li>
-        <li>Waschmaschine</li>
-        <li>Spülmaschine</li>
-        <li>Fön</li>
-        <li>Eisen</li>
-      </ul>
-      <p class="td">
-        Kontakte:<br>
-        <a href="mailto:Monicashouseroma@gmail.com">Monicashouseroma@gmail.com</a>
-      </p>
+          <div class="amenities-grid">
+            <article class="amenity-card"><span aria-hidden="true">📶</span><div><strong>Wi-Fi gratuito</strong><p>Connessione disponibile in tutto l'appartamento.</p></div></article>
+            <article class="amenity-card"><span aria-hidden="true">🍳</span><div><strong>Cucina attrezzata</strong><p>Tutto il necessario per pasti e colazioni.</p></div></article>
+            <article class="amenity-card"><span aria-hidden="true">🧺</span><div><strong>Lavatrice</strong><p>Comoda per soggiorni brevi e lunghi.</p></div></article>
+            <article class="amenity-card"><span aria-hidden="true">🍽️</span><div><strong>Lavastoviglie</strong><p>Per una gestione più pratica degli spazi.</p></div></article>
+            <article class="amenity-card"><span aria-hidden="true">📺</span><div><strong>TV da 36 pollici</strong><p>Per i momenti di relax in appartamento.</p></div></article>
+            <article class="amenity-card"><span aria-hidden="true">☀️</span><div><strong>Terrazzo privato</strong><p>Uno spazio esterno ampio e tranquillo.</p></div></article>
+            <article class="amenity-card"><span aria-hidden="true">💨</span><div><strong>Asciugacapelli</strong><p>Disponibile in bagno per gli ospiti.</p></div></article>
+            <article class="amenity-card"><span aria-hidden="true">👔</span><div><strong>Ferro da stiro</strong><p>Utile per mantenere gli abiti in ordine.</p></div></article>
+          </div>
+        </div>
+      </div>
 
-      <!-- testi spagnolo -->
-      <h4 class="sp">PISO LUMINOSO CON GRAN TERRAZA</h4>
-      <p class="sp">
-        Relájese en este espacio tranquilo en una ubicación central en Roma.<br>
-        Finamente renovado en 2025, a 50 metros de la parada de metro Re di Roma.<br>
-        Ideal para parejas.
-      </p>
-      <ul class="sp">
-        <li>Cocina equipada</li>
-        <li>Wi-Fi gratuito</li>
-        <li>Televisor de 36 pulgadas</li>
-        <li>Lavadora</li>
-        <li>Lavavajillas</li>
-        <li>Secador de pelo</li>
-        <li>Hierro</li>
-      </ul>
-      <p class="sp">
-        Contactos:<br>
-        <a href="mailto:Monicashouseroma@gmail.com">Monicashouseroma@gmail.com</a>
-      </p>
-
-      <!-- testi russo -->
-      <h4 class="rs">SVETLAYA KVARTIRA S BOL'SHOY TERRASOY</h4>
-      <p class="rs">
-        Otdokhnite v etom tikhom meste v tsentre Roma.<br>
-        Remont sdelan v 2025 godu, v 50 metrakh ot stantsii metro Re di Roma.<br>
-        Ideal'no podkhodit dlya par.
-      </p>
-      <ul class="rs">
-        <li>Oborudovannaya kukhnya</li>
-        <li>Besplatnyy Wi-Fi</li>
-        <li>36-dyuymovyy televizor</li>
-        <li>Stiral'naya mashina</li>
-        <li>Posudomoyechnaya mashina</li>
-        <li>Fen</li>
-        <li>Zhelezo</li>
-      </ul>
-      <p class="rs">
-        Kontakty:<br>
-        <a href="mailto:Monicashouseroma@gmail.com">Monicashouseroma@gmail.com</a>
-      </p>
-
-      <!-- testi russi cirillico -->
-      <h4 class="rsc">СВЕТЛАЯ КВАРТИРА С БОЛЬШОЙ ТЕРРАСОЙ</h4>
-      <p class="rsc">
-        Отдохните в этом тихом месте в центре Roma.<br>
-        Ремонт сделан в 2025 году, в 50 метрах от станции метро Re di Roma.<br>
-        Идеально подходит для пар.
-      </p>
-      <ul class="rsc">
-        <li>Оборудованная кухня</li>
-        <li>Бесплатный Wi-Fi</li>
-        <li>36-дюймовый телевизор</li>
-        <li>Стиральная машина</li>
-        <li>Посудомоечная машинa</li>
-        <li>Фен</li>
-        <li>a Утюr</li>
-      </ul>
-      <p class="rsc">
-        Contactos:<br>
-        <a href="mailto:Monicashouseroma@gmail.com">Monicashouseroma@gmail.com</a>
-      </p>
-    </div> <!-- chiude descrizione -->
+      <div class="info-panels">
+        <article class="info-panel">
+          <p class="section-eyebrow">POSIZIONE</p>
+          <h3>Muoversi a Roma è semplice</h3>
+          <p>La fermata Re di Roma della Metro A si trova a circa 50 metri e permette di raggiungere rapidamente il centro storico, Termini e il Vaticano.</p>
+        </article>
+        <article class="info-panel">
+          <p class="section-eyebrow">INFORMAZIONI UTILI</p>
+          <h3>Tutto quello che serve sapere</h3>
+          <ul class="stay-list">
+            <li><strong>Check-in:</strong> entro le 15:00</li>
+            <li><strong>Check-out:</strong> entro le 10:00</li>
+            <li><strong>Ideale per:</strong> coppie</li>
+            <li><strong>Ristrutturazione:</strong> 2025</li>
+          </ul>
+        </article>
+      </div>
+    </section>
   </div> <!-- chiude sezione-descrizione -->
 
   <div id="sezione-recensioni" style="display:none;">
-    <div class="recensioni">
-      <div class="review-source">
-        <a id="btn-airbnb" class="btn" href="https://www.airbnb.it/users/show/675653193" target="_blank" rel="noopener">Leggi tutte le recensioni su Airbnb ↗</a>
+    <section class="reviews-section" aria-labelledby="reviews-title">
+      <div class="section-heading">
+        <p id="reviews-eyebrow" class="section-eyebrow">RECENSIONI</p>
+        <h2 id="reviews-title">Cosa dicono gli ospiti</h2>
+        <p id="reviews-intro" class="section-intro">Leggi le esperienze di chi ha già soggiornato da Monica's House Roma.</p>
       </div>
-      <div class="elfsight-app-REPLACE_WITH_YOUR_APP_ID"></div>
-      <h3>Recensioni</h3>
-      <form id="review-form" class="review-form" onsubmit="inviaRecensione(event)">
-        <div class="form-row">
-          <label for="rev-name" id="lbl-rev-name">Nome</label>
-          <input type="text" id="rev-name" name="name" required maxlength="50" placeholder="Il tuo nome" />
-        </div>
-        <div class="form-row">
-          <span id="lbl-rev-rating">Valutazione</span>
-          <div class="stars" id="rev-stars" aria-label="Valutazione da 1 a 5">
-            <button type="button" data-val="1" aria-label="1">★</button>
-            <button type="button" data-val="2" aria-label="2">★</button>
-            <button type="button" data-val="3" aria-label="3">★</button>
-            <button type="button" data-val="4" aria-label="4">★</button>
-            <button type="button" data-val="5" aria-label="5">★</button>
-            <input type="hidden" id="rev-rating" name="rating" value="5" />
+
+      <div class="reviews-overview">
+        <div class="reviews-score-card">
+          <span class="reviews-score" id="reviews-average">—</span>
+          <div>
+            <div class="reviews-stars" id="reviews-stars-summary">☆☆☆☆☆</div>
+            <p id="reviews-count">Nessuna recensione ancora</p>
           </div>
         </div>
-        <div class="form-row">
-          <label for="rev-text" id="lbl-rev-text">La tua recensione</label>
-          <textarea id="rev-text" name="text" rows="4" required maxlength="500" placeholder="Racconta la tua esperienza…"></textarea>
-          <div class="char-counter" id="rev-counter">0/500</div>
-        </div>
-        <!-- honeypot anti-spam -->
-        <input type="text" id="rev-website" name="website" style="display:none" tabindex="-1" autocomplete="off" />
-        <div class="form-row">
-          <button class="btn" id="btn-rev-submit" type="submit">Invia recensione</button>
-        </div>
-        <p class="form-note" id="rev-privacy">Inviando, accetti che la recensione sia mostrata pubblicamente. Nessun dato viene condiviso con terze parti.</p>
-        <p class="form-success" id="rev-success" style="display:none;">Grazie! La tua recensione è stata aggiunta.</p>
-      </form>
+        <a id="btn-airbnb" class="btn" href="https://www.airbnb.it/users/show/675653193" target="_blank" rel="noopener">Leggi tutte le recensioni su Airbnb ↗</a>
+      </div>
 
-      <div id="reviews-list" class="reviews-list"></div>
-    </div>
+      <div id="reviews-list" class="reviews-list reviews-grid"></div>
+
+      <div class="review-form-panel">
+        <div class="review-form-copy">
+          <p id="review-form-eyebrow" class="section-eyebrow">LA TUA ESPERIENZA</p>
+          <h3 id="review-form-title">Hai soggiornato da noi?</h3>
+          <p id="review-form-intro">Racconta la tua esperienza e aiutaci a migliorare.</p>
+        </div>
+
+        <form id="review-form" class="review-form" onsubmit="inviaRecensione(event)">
+          <div class="form-row">
+            <label for="rev-name" id="lbl-rev-name">Nome</label>
+            <input type="text" id="rev-name" name="name" required maxlength="50" placeholder="Il tuo nome" />
+          </div>
+          <div class="form-row">
+            <span id="lbl-rev-rating">Valutazione</span>
+            <div class="stars" id="rev-stars" aria-label="Valutazione da 1 a 5">
+              <button type="button" data-val="1" aria-label="1">★</button>
+              <button type="button" data-val="2" aria-label="2">★</button>
+              <button type="button" data-val="3" aria-label="3">★</button>
+              <button type="button" data-val="4" aria-label="4">★</button>
+              <button type="button" data-val="5" aria-label="5">★</button>
+              <input type="hidden" id="rev-rating" name="rating" value="5" />
+            </div>
+          </div>
+          <div class="form-row">
+            <label for="rev-text" id="lbl-rev-text">La tua recensione</label>
+            <textarea id="rev-text" name="text" rows="4" required maxlength="500" placeholder="Racconta la tua esperienza…"></textarea>
+            <div class="char-counter" id="rev-counter">0/500</div>
+          </div>
+          <input type="text" id="rev-website" name="website" style="display:none" tabindex="-1" autocomplete="off" />
+          <div class="form-row">
+            <button class="btn btn-primary" id="btn-rev-submit" type="submit">Invia recensione</button>
+          </div>
+          <p class="form-note" id="rev-privacy">Inviando, accetti che la recensione sia mostrata pubblicamente. Nessun dato viene condiviso con terze parti.</p>
+          <p class="form-success" id="rev-success" style="display:none;">Grazie! La tua recensione è stata aggiunta.</p>
+        </form>
+      </div>
+    </section>
+  </div>
+
+  <div id="sezione-prenotati" style="display:none;">
+    <section class="booking-section" aria-labelledby="prenotati-title">
+      <div class="section-heading">
+        <p id="booking-eyebrow" class="section-eyebrow">PRENOTAZIONI</p>
+        <h2 id="prenotati-title">Controlla la disponibilità</h2>
+        <p id="prenotati-desc" class="section-intro">Seleziona il giorno di arrivo e quello di partenza. Ti risponderemo rapidamente per confermare il soggiorno.</p>
+      </div>
+
+      <div class="booking-layout">
+        <div class="booking-calendar-card">
+          <div class="booking-card-header">
+            <h3 id="booking-calendar-title">Calendario disponibilità</h3>
+            <p id="booking-calendar-desc">Seleziona un giorno per richiedere una notte. Per più notti, seleziona poi il giorno di partenza.</p>
+          </div>
+          <div id="mh-calendar" class="calendar"></div>
+          <div class="cal-legend">
+            <span><i class="cal-swatch swatch-av"></i> <span id="booking-legend-free">Giorni liberi</span></span>
+            <span><i class="cal-swatch swatch-unav"></i> <span id="booking-legend-busy">Occupati</span></span>
+            <span><i class="cal-swatch swatch-sel"></i> <span id="booking-legend-selected">Selezione</span></span>
+          </div>
+        </div>
+
+        <aside class="booking-summary-card">
+          <p id="booking-summary-eyebrow" class="section-eyebrow">IL TUO SOGGIORNO</p>
+          <h3 id="booking-summary-title">Riepilogo prenotazione</h3>
+          <div class="summary-row"><span id="booking-arrival-label">Arrivo:</span> <strong id="summary-arrival">—</strong></div>
+          <div class="summary-row"><span id="booking-departure-label">Partenza:</span> <strong id="summary-departure">—</strong></div>
+          <div class="summary-row"><span id="booking-nights-label">Notti:</span> <strong id="summary-nights">—</strong></div>
+
+
+          <p id="summary-empty" class="summary-empty">Seleziona le date per completare il riepilogo.</p>
+
+          <div class="booking-request-fields">
+            <label><span id="booking-name-label">Nome</span><input id="booking-name" type="text" maxlength="60" placeholder="Il tuo nome"></label>
+          </div>
+
+          <div class="booking-contact-actions">
+            <a id="booking-mail" class="btn btn-primary disabled" href="mailto:Monicashouseroma@gmail.com" target="_blank" rel="noopener" aria-disabled="true">Invia richiesta via email</a>
+            <a id="booking-whatsapp" class="btn booking-whatsapp disabled" href="#" target="_blank" rel="noopener" aria-disabled="true">Scrivici su WhatsApp</a>
+          </div>
+          <p id="booking-note" class="booking-note">La richiesta non è vincolante. Riceverai conferma dopo la verifica della disponibilità.</p>
+        </aside>
+      </div>
+
+      <div id="admin-import" style="display:none;max-width:800px;margin:28px auto 0;border:1px dashed #ddd;border-radius:12px;padding:14px 16px;text-align:left;background:#fff;">
+        <div class="admin-dashboard-header">
+          <div>
+            <p class="section-eyebrow">AREA ADMIN</p>
+            <h3>Gestione Monica's House Roma</h3>
+            <p>Controlla rapidamente i dati principali e aggiorna le prenotazioni.</p>
+          </div>
+        </div>
+
+        <div class="admin-stats-grid">
+          <article class="admin-stat-card">
+            <span class="admin-stat-label">Prenotazioni future</span>
+            <strong id="admin-bookings-count">—</strong>
+          </article>
+          <article class="admin-stat-card">
+            <span class="admin-stat-label">Recensioni pubblicate</span>
+            <strong id="admin-reviews-count">—</strong>
+          </article>
+          <article class="admin-stat-card">
+            <span class="admin-stat-label">Da approvare</span>
+            <strong id="admin-pending-reviews-count">—</strong>
+          </article>
+          <article class="admin-stat-card">
+            <span class="admin-stat-label">Visite totali</span>
+            <strong id="admin-pageviews-count">—</strong>
+          </article>
+          <article class="admin-stat-card">
+            <span class="admin-stat-label">Visite oggi</span>
+            <strong id="admin-today-views-count">—</strong>
+          </article>
+          <article class="admin-stat-card">
+            <span class="admin-stat-label">Sessioni uniche oggi</span>
+            <strong id="admin-today-sessions-count">—</strong>
+          </article>
+          <article class="admin-stat-card admin-stat-wide">
+            <span class="admin-stat-label">Visite ultimi 7 giorni</span>
+            <strong id="admin-week-views-count">—</strong>
+          </article>
+        </div>
+
+        <div class="admin-panel-section">
+          <h4>Gestisci prenotazioni manualmente</h4>
+          <p>Aggiungi una prenotazione senza usare Excel. Il sistema blocca date non valide o sovrapposte.</p>
+          <form id="admin-booking-form" class="admin-booking-form">
+            <label>
+              Arrivo
+              <input id="admin-booking-arrival" type="date" required>
+            </label>
+            <label>
+              Partenza
+              <input id="admin-booking-departure" type="date" required>
+            </label>
+            <label>
+              Ospite / Nota
+              <input id="admin-booking-guest" type="text" maxlength="80" placeholder="Facoltativo">
+            </label>
+            <button type="submit" class="btn btn-primary">Aggiungi prenotazione</button>
+          </form>
+          <p id="admin-booking-message" class="admin-booking-message" aria-live="polite"></p>
+        </div>
+
+        <div class="admin-panel-section">
+          <h4>Importa prenotazioni da Excel</h4>
+          <p>Carica un file Excel con colonne <code>arrival</code> e <code>departure</code> nel formato <code>YYYY-MM-DD</code> oppure <code>arrivo</code>/<code>uscita</code>.</p>
+          <div class="admin-import-actions">
+            <input id="xls-file" type="file" accept=".xlsx,.xls,.csv,.numbers" />
+            <button id="btn-import" class="btn">Importa prenotazioni</button>
+          </div>
+          <div id="import-log" class="admin-import-log"></div>
+          <div id="admin-bookings-list" class="admin-bookings-list"></div>
+        </div>
+      </div>
+    </section>
   </div>
     <script>
       let lingua = "it";
 
             // ---- Firebase config & init ----
             const firebaseConfig = {
-        apiKey: "AIzaSyCaEmqB9Xxn5DpEKf63u1GQstNU3VIg-xc",
+        apiKey: "AIzaSyCaEmQB9Xxn5DgEKf63u1GQstNU3VIg-xc",
         authDomain: "monicashouse-5da13.firebaseapp.com",
         projectId: "monicashouse-5da13",
-        storageBucket: "monicashouse-5da13.appspot.com",
+        storageBucket: "monicashouse-5da13.firebasestorage.app",
         messagingSenderId: "133275293239",
         appId: "1:133275293239:web:2d3ff47fb2e852533611b2",
         measurementId: "G-08PNL2X62"
       };
       const app = firebase.initializeApp(firebaseConfig);
       const db = firebase.firestore();
+      const auth = firebase.auth();
+      const ADMIN_UID = 'yohqddSkMnUss3B7H6gdRrgnjnq1';
 
       // ---- Page view counter (hidden; logs only if admin flag is set locally) ----
       function isAdminViewer() {
-        // Abilita i log solo per te eseguendo in console:
-        // localStorage.setItem('mh_admin', '1')
-        try { return localStorage.getItem('mh_admin') === '1'; } catch (_) { return false; }
+        return !!auth.currentUser && auth.currentUser.uid === ADMIN_UID;
       }
 
 async function trackPageView() {
   try {
-    const ref = db.collection('metrics').doc('pageViews');
-    await ref.set({
+    const now = new Date();
+    const dayKey = ymd(now);
+    const totalRef = db.collection('metrics').doc('pageViews');
+    const dailyRef = db.collection('metrics').doc(`daily_${dayKey}`);
+    const sessionStorageKey = `mh-session-${dayKey}`;
+    const isNewSessionToday = !sessionStorage.getItem(sessionStorageKey);
+
+    const batch = db.batch();
+    batch.set(totalRef, {
       count: firebase.firestore.FieldValue.increment(1),
       last: firebase.firestore.FieldValue.serverTimestamp()
     }, { merge: true });
+    batch.set(dailyRef, {
+      date: dayKey,
+      views: firebase.firestore.FieldValue.increment(1),
+      uniqueSessions: firebase.firestore.FieldValue.increment(isNewSessionToday ? 1 : 0),
+      last: firebase.firestore.FieldValue.serverTimestamp()
+    }, { merge: true });
+    await batch.commit();
 
-    if (isAdminViewer()) {
-      const snap = await ref.get();
-      const c = (snap.exists && snap.data().count) ? snap.data().count : 0;
-      console.log(`[Monica's House] Page views totali: ${c}`);
-    }
+    if (isNewSessionToday) sessionStorage.setItem(sessionStorageKey, '1');
   } catch (e) {
     if (isAdminViewer()) console.warn('Counter error:', e);
+  }
+}
+
+async function loadAdminDashboard() {
+  if (!isAdminViewer()) return;
+
+  const bookingsEl = document.getElementById('admin-bookings-count');
+  const reviewsEl = document.getElementById('admin-reviews-count');
+  const pendingReviewsEl = document.getElementById('admin-pending-reviews-count');
+  const pageViewsEl = document.getElementById('admin-pageviews-count');
+  const todayViewsEl = document.getElementById('admin-today-views-count');
+  const todaySessionsEl = document.getElementById('admin-today-sessions-count');
+  const weekViewsEl = document.getElementById('admin-week-views-count');
+
+  try {
+    const today = new Date();
+    const todayKey = ymd(today);
+    const lastSevenKeys = [];
+    for (let i = 0; i < 7; i++) lastSevenKeys.push(ymd(addDays(today, -i)));
+
+    const dailyPromises = lastSevenKeys.map(key => db.collection('metrics').doc(`daily_${key}`).get());
+    const [bookingsSnap, reviewsSnap, pageViewsSnap, ...dailySnaps] = await Promise.all([
+      db.collection('bookings').get(),
+      db.collection('reviews').get(),
+      db.collection('metrics').doc('pageViews').get(),
+      ...dailyPromises
+    ]);
+
+    const now = new Date();
+    let futureBookings = 0;
+    bookingsSnap.forEach(doc => {
+      const data = doc.data();
+      const departure = data.departure && data.departure.toDate ? data.departure.toDate() : null;
+      if (departure && departure >= now) futureBookings += 1;
+    });
+
+    let approvedReviews = 0;
+    let pendingReviews = 0;
+    reviewsSnap.forEach(doc => {
+      const status = doc.data().status || 'approved';
+      if (status === 'pending') pendingReviews += 1;
+      else approvedReviews += 1;
+    });
+
+    const totalViews = pageViewsSnap.exists ? Number(pageViewsSnap.data().count || 0) : 0;
+    const todaySnap = dailySnaps.find(snap => snap.exists && snap.data().date === todayKey);
+    const todayViews = todaySnap ? Number(todaySnap.data().views || 0) : 0;
+    const todaySessions = todaySnap ? Number(todaySnap.data().uniqueSessions || 0) : 0;
+    const weekViews = dailySnaps.reduce((sum, snap) => sum + (snap.exists ? Number(snap.data().views || 0) : 0), 0);
+
+    if (bookingsEl) bookingsEl.textContent = String(futureBookings);
+    if (reviewsEl) reviewsEl.textContent = String(approvedReviews);
+    if (pendingReviewsEl) pendingReviewsEl.textContent = String(pendingReviews);
+    if (pageViewsEl) pageViewsEl.textContent = String(totalViews);
+    if (todayViewsEl) todayViewsEl.textContent = String(todayViews);
+    if (todaySessionsEl) todaySessionsEl.textContent = String(todaySessions);
+    if (weekViewsEl) weekViewsEl.textContent = String(weekViews);
+  } catch (error) {
+    console.error('Errore caricamento dashboard admin:', error);
+    [bookingsEl, reviewsEl, pendingReviewsEl, pageViewsEl, todayViewsEl, todaySessionsEl, weekViewsEl]
+      .forEach(el => { if (el) el.textContent = '—'; });
   }
 }
 
@@ -357,6 +521,24 @@ async function trackPageView() {
           nav_home: "Home",
           nav_descrizione: "Descrizione",
           nav_recensioni: "Recensioni",
+          nav_prenotati: "Prenotati",
+          hero_title: "Il tuo soggiorno nel cuore di Roma",
+          hero_subtitle: "Un appartamento luminoso con terrazzo privato, a pochi passi dalla Metro A.",
+          hero_book: "Controlla disponibilità",
+          hero_discover: "Scopri l'appartamento",
+          highlights_label: "Punti di forza",
+          highlight_metro_title: "Metro vicinissima",
+          highlight_metro_text: "Re di Roma a circa 50 metri",
+          highlight_terrace_title: "Terrazzo privato",
+          highlight_terrace_text: "Uno spazio esterno ampio e tranquillo",
+          highlight_renovated_title: "Ristrutturato nel 2025",
+          highlight_renovated_text: "Ambienti moderni, luminosi e curati",
+          highlight_couples_title: "Ideale per coppie",
+          highlight_couples_text: "Comfort e privacy per il tuo soggiorno",
+          gallery_eyebrow: "GALLERIA",
+          gallery_title: "Scopri gli ambienti",
+          prenotati_title: "Prenotati",
+          prenotati_desc: "Seleziona una data dal calendario e contattaci per verificare la disponibilità.",
           airbnb_btn: "Leggi tutte le recensioni su Airbnb ↗",
           rev_name: "Nome",
           rev_rating: "Valutazione",
@@ -364,7 +546,9 @@ async function trackPageView() {
           rev_placeholder: "Racconta la tua esperienza…",
           rev_submit: "Invia recensione",
           rev_privacy: "Inviando, accetti che la recensione sia mostrata pubblicamente. Nessun dato viene condiviso con terze parti.",
-          rev_success: "Grazie! La tua recensione è stata aggiunta."
+          rev_success: "Grazie! La tua recensione è stata aggiunta.",
+          checkin_note: "Check-in entro le ore 15:00",
+          checkout_note: "Check-out entro le ore 10:00",
         },
         en: {
           precedente: "← Previous image",
@@ -378,6 +562,24 @@ async function trackPageView() {
           nav_home: "Home",
           nav_descrizione: "Description",
           nav_recensioni: "Reviews",
+          nav_prenotati: "Book",
+          hero_title: "Your stay in the heart of Rome",
+          hero_subtitle: "A bright apartment with a private terrace, just steps from Metro Line A.",
+          hero_book: "Check availability",
+          hero_discover: "Discover the apartment",
+          highlights_label: "Highlights",
+          highlight_metro_title: "Metro nearby",
+          highlight_metro_text: "Re di Roma station about 50 metres away",
+          highlight_terrace_title: "Private terrace",
+          highlight_terrace_text: "A spacious and peaceful outdoor area",
+          highlight_renovated_title: "Renovated in 2025",
+          highlight_renovated_text: "Modern, bright and carefully designed interiors",
+          highlight_couples_title: "Ideal for couples",
+          highlight_couples_text: "Comfort and privacy for your stay",
+          gallery_eyebrow: "GALLERY",
+          gallery_title: "Explore the rooms",
+          prenotati_title: "Book your stay",
+          prenotati_desc: "Pick a date from the calendar and contact us to check availability.",
           airbnb_btn: "Read all reviews on Airbnb ↗",
           rev_name: "Name",
           rev_rating: "Rating",
@@ -385,7 +587,9 @@ async function trackPageView() {
           rev_placeholder: "Share your experience…",
           rev_submit: "Send review",
           rev_privacy: "By sending, you agree your review may be shown publicly. No data is shared with third parties.",
-          rev_success: "Thanks! Your review has been added."
+          rev_success: "Thanks! Your review has been added.",
+          checkin_note: "Check-in before 3:00 PM",
+          checkout_note: "Check-out before 10:00 AM",
         },
         fr: {
           precedente: "← Image précédente",
@@ -399,6 +603,24 @@ async function trackPageView() {
           nav_home: "Accueil",
           nav_descrizione: "Description",
           nav_recensioni: "Avis",
+          nav_prenotati: "Réserver",
+          hero_title: "Votre séjour au cœur de Rome",
+          hero_subtitle: "Un appartement lumineux avec terrasse privée, à quelques pas du métro A.",
+          hero_book: "Voir les disponibilités",
+          hero_discover: "Découvrir l'appartement",
+          highlights_label: "Points forts",
+          highlight_metro_title: "Métro tout proche",
+          highlight_metro_text: "La station Re di Roma est à environ 50 mètres",
+          highlight_terrace_title: "Terrasse privée",
+          highlight_terrace_text: "Un espace extérieur spacieux et paisible",
+          highlight_renovated_title: "Rénové en 2025",
+          highlight_renovated_text: "Des espaces modernes, lumineux et soignés",
+          highlight_couples_title: "Idéal pour les couples",
+          highlight_couples_text: "Confort et intimité pour votre séjour",
+          gallery_eyebrow: "GALERIE",
+          gallery_title: "Découvrez les espaces",
+          prenotati_title: "Réservez votre séjour",
+          prenotati_desc: "Choisissez une date sur le calendrier et contactez-nous pour vérifier la disponibilité.",
           airbnb_btn: "Lire tous les avis sur Airbnb ↗",
           rev_name: "Nom",
           rev_rating: "Note",
@@ -406,7 +628,9 @@ async function trackPageView() {
           rev_placeholder: "Partagez votre expérience…",
           rev_submit: "Envoyer l’avis",
           rev_privacy: "En envoyant, vous acceptez que l’avis soit affiché publiquement. Aucune donnée partagée avec des tiers.",
-          rev_success: "Merci ! Votre avis a été ajouté."
+          rev_success: "Merci ! Votre avis a été ajouté.",
+          checkin_note: "Arrivée avant 15h00",
+          checkout_note: "Départ avant 10h00",
         },
         td: {
           precedente: "← Vorheriges Bild",
@@ -420,6 +644,24 @@ async function trackPageView() {
           nav_home: "Startseite",
           nav_descrizione: "Beschreibung",
           nav_recensioni: "Bewertungen",
+          nav_prenotati: "Buchen",
+          hero_title: "Ihr Aufenthalt im Herzen Roms",
+          hero_subtitle: "Eine helle Wohnung mit privater Terrasse, nur wenige Schritte von der Metro A entfernt.",
+          hero_book: "Verfügbarkeit prüfen",
+          hero_discover: "Wohnung entdecken",
+          highlights_label: "Besondere Vorteile",
+          highlight_metro_title: "Metro ganz in der Nähe",
+          highlight_metro_text: "Re di Roma ist etwa 50 Meter entfernt",
+          highlight_terrace_title: "Private Terrasse",
+          highlight_terrace_text: "Ein großzügiger und ruhiger Außenbereich",
+          highlight_renovated_title: "2025 renoviert",
+          highlight_renovated_text: "Moderne, helle und gepflegte Räume",
+          highlight_couples_title: "Ideal für Paare",
+          highlight_couples_text: "Komfort und Privatsphäre für Ihren Aufenthalt",
+          gallery_eyebrow: "GALERIE",
+          gallery_title: "Räume entdecken",
+          prenotati_title: "Aufenthalt buchen",
+          prenotati_desc: "Wählen Sie ein Datum im Kalender und kontaktieren Sie uns zur Verfügbarkeit.",
           airbnb_btn: "Alle Bewertungen auf Airbnb lesen ↗",
           rev_name: "Name",
           rev_rating: "Bewertung",
@@ -427,7 +669,9 @@ async function trackPageView() {
           rev_placeholder: "Teilen Sie Ihre Erfahrung…",
           rev_submit: "Rezension senden",
           rev_privacy: "Mit dem Senden stimmen Sie der öffentlichen Anzeige zu. Keine Daten an Dritte weitergegeben.",
-          rev_success: "Danke! Ihre Rezension wurde hinzugefügt."
+          rev_success: "Danke! Ihre Rezension wurde hinzugefügt.",
+          checkin_note: "Check-in bis 15:00 Uhr",
+          checkout_note: "Check-out bis 10:00 Uhr",
         },
         sp: {
           precedente: "← Imagen anterior",
@@ -441,6 +685,24 @@ async function trackPageView() {
           nav_home: "Inicio",
           nav_descrizione: "Descripción",
           nav_recensioni: "Reseñas",
+          nav_prenotati: "Reservar",
+          hero_title: "Tu estancia en el corazón de Roma",
+          hero_subtitle: "Un apartamento luminoso con terraza privada, a pocos pasos del Metro A.",
+          hero_book: "Consultar disponibilidad",
+          hero_discover: "Descubrir el apartamento",
+          highlights_label: "Puntos fuertes",
+          highlight_metro_title: "Metro muy cerca",
+          highlight_metro_text: "Re di Roma está a unos 50 metros",
+          highlight_terrace_title: "Terraza privada",
+          highlight_terrace_text: "Un espacio exterior amplio y tranquilo",
+          highlight_renovated_title: "Renovado en 2025",
+          highlight_renovated_text: "Ambientes modernos, luminosos y cuidados",
+          highlight_couples_title: "Ideal para parejas",
+          highlight_couples_text: "Comodidad y privacidad para tu estancia",
+          gallery_eyebrow: "GALERÍA",
+          gallery_title: "Descubre los espacios",
+          prenotati_title: "Reserva tu estancia",
+          prenotati_desc: "Elige una fecha del calendario y contáctanos para verificar la disponibilidad.",
           airbnb_btn: "Leer todas las reseñas en Airbnb ↗",
           rev_name: "Nombre",
           rev_rating: "Valoración",
@@ -448,7 +710,9 @@ async function trackPageView() {
           rev_placeholder: "Comparte tu experiencia…",
           rev_submit: "Enviar reseña",
           rev_privacy: "Al enviar, aceptas que la reseña se muestre públicamente. No se comparten datos con terceros.",
-          rev_success: "¡Gracias! Tu reseña ha sido añadida."
+          rev_success: "¡Gracias! Tu reseña ha sido añadida.",
+          checkin_note: "Check-in antes de las 15:00",
+          checkout_note: "Check-out antes de las 10:00",
         },
         rs: {
           precedente: "← Predydushchaya kartinka",
@@ -462,6 +726,24 @@ async function trackPageView() {
           nav_home: "Domoy",
           nav_descrizione: "Opisaniye",
           nav_recensioni: "Otzivy",
+          nav_prenotati: "Bronirovat'",
+          hero_title: "Vashe prozhivaniye v samom serdtse Rima",
+          hero_subtitle: "Svetlaya kvartira s chastnoy terrasoy v neskol'kikh shagakh ot metro A.",
+          hero_book: "Proverit' dostupnost'",
+          hero_discover: "Posmotret' kvartiru",
+          highlights_label: "Preimushchestva",
+          highlight_metro_title: "Metro sovsem ryadom",
+          highlight_metro_text: "Stantsiya Re di Roma primerno v 50 metrakh",
+          highlight_terrace_title: "Chastnaya terrasa",
+          highlight_terrace_text: "Prostornoye i tikhoye mesto na otkrytom vozdukhe",
+          highlight_renovated_title: "Otremontirovano v 2025 godu",
+          highlight_renovated_text: "Sovremennyye, svetlyye i ukhozhennyye pomeshcheniya",
+          highlight_couples_title: "Ideal'no dlya par",
+          highlight_couples_text: "Komfort i privatnost' vo vremya prozhivaniya",
+          gallery_eyebrow: "GALEREYA",
+          gallery_title: "Posmotrite pomeshcheniya",
+          prenotati_title: "Zabroniruyte prozhivaniye",
+          prenotati_desc: "Vyberite datu v kalendare i svyazhites' s nami, chtoby proverit' nalichiye.",
           airbnb_btn: "Prochitat' vse otzyvy na Airbnb ↗",
           rev_name: "Imya",
           rev_rating: "Ocenka",
@@ -469,7 +751,9 @@ async function trackPageView() {
           rev_placeholder: "Podelites' opytom…",
           rev_submit: "Otdat' otzyv",
           rev_privacy: "Otpravlyaya, vy soglashaetes', chto otzyv budet publichnym. Dannyye ne peredayutsya tretym litsam.",
-          rev_success: "Spasibo! Vash otzyv dobavlen."
+          rev_success: "Spasibo! Vash otzyv dobavlen.",
+          checkin_note: "Zaseleniye do 15:00",
+          checkout_note: "Vyseleniye do 10:00",
         },
         rsc: {
           precedente: "← Предыдущее изображение",
@@ -483,6 +767,24 @@ async function trackPageView() {
           nav_home: "Домой",
           nav_descrizione: "Описание",
           nav_recensioni: "Отзывы",
+          nav_prenotati: "Забронировать",
+          hero_title: "Ваше проживание в самом сердце Рима",
+          hero_subtitle: "Светлая квартира с частной террасой в нескольких шагах от метро A.",
+          hero_book: "Проверить доступность",
+          hero_discover: "Посмотреть квартиру",
+          highlights_label: "Преимущества",
+          highlight_metro_title: "Метро совсем рядом",
+          highlight_metro_text: "Станция Re di Roma примерно в 50 метрах",
+          highlight_terrace_title: "Частная терраса",
+          highlight_terrace_text: "Просторное и тихое место на открытом воздухе",
+          highlight_renovated_title: "Отремонтировано в 2025 году",
+          highlight_renovated_text: "Современные, светлые и ухоженные помещения",
+          highlight_couples_title: "Идеально для пар",
+          highlight_couples_text: "Комфорт и уединение во время проживания",
+          gallery_eyebrow: "ГАЛЕРЕЯ",
+          gallery_title: "Посмотрите помещения",
+          prenotati_title: "Забронируйте проживание",
+          prenotati_desc: "Выберите дату в календаре и свяжитесь с нами, чтобы проверить доступность.",
           airbnb_btn: "Прочитать все отзывы на Airbnb ↗",
           rev_name: "Имя",
           rev_rating: "Оценка",
@@ -490,13 +792,16 @@ async function trackPageView() {
           rev_placeholder: "Поделитесь своим опытом…",
           rev_submit: "Отправить отзыв",
           rev_privacy: "Отправляя, вы соглашаетесь на публичное размещение отзыва. Данные не передаются третьим лицам.",
-          rev_success: "Спасибо! Ваш отзыв добавлен."
+          rev_success: "Спасибо! Ваш отзыв добавлен.",
+          checkin_note: "Заезд до 15:00",
+          checkout_note: "Выезд до 10:00",
         }
       };
 
 
       function selezionaLingua(lang) {
         lingua = lang;
+        document.documentElement.lang = linguaToLocale(lang).split('-')[0];
         // Nasconde i testi
         document.querySelectorAll(".it, .en, .fr, .td, .sp, .rs, .rsc").forEach(el => el.style.display = "none");
 
@@ -504,8 +809,6 @@ async function trackPageView() {
         document.querySelectorAll("." + lingua).forEach(el => el.style.display = "block");
 
         // Aggiorna i testi dei bottoni e categorie
-        document.querySelector(".bottone button:first-child").innerText = testi[lingua].precedente;
-        document.querySelector(".bottone button:last-child").innerText = testi[lingua].successiva;
         document.querySelector('label[for="categoria"]').innerText = testi[lingua].categoria;
 
         const btnAirbnb = document.getElementById("btn-airbnb");
@@ -520,6 +823,50 @@ async function trackPageView() {
         document.getElementById("nav-home").innerText = testi[lingua].nav_home;
         document.getElementById("nav-descrizione").innerText = testi[lingua].nav_descrizione;
         document.getElementById("nav-recensioni").innerText = testi[lingua].nav_recensioni;
+        const navPren = document.getElementById("nav-prenotati");
+        if (navPren) navPren.innerText = testi[lingua].nav_prenotati;
+        const prenTitle = document.getElementById('prenotati-title');
+        const prenDesc = document.getElementById('prenotati-desc');
+        if (prenTitle) prenTitle.innerText = testi[lingua].prenotati_title;
+        if (prenDesc) prenDesc.innerText = testi[lingua].prenotati_desc;
+
+        // HERO, HIGHLIGHTS, GALLERY TEXTS
+        const heroTitle = document.getElementById('hero-title');
+        const heroSubtitle = document.getElementById('hero-subtitle');
+        const heroBook = document.getElementById('hero-book');
+        const heroDiscover = document.getElementById('hero-discover');
+        const highlightsSection = document.querySelector('.highlights');
+        const highlightMetroTitle = document.getElementById('highlight-metro-title');
+        const highlightMetroText = document.getElementById('highlight-metro-text');
+        const highlightTerraceTitle = document.getElementById('highlight-terrace-title');
+        const highlightTerraceText = document.getElementById('highlight-terrace-text');
+        const highlightRenovatedTitle = document.getElementById('highlight-renovated-title');
+        const highlightRenovatedText = document.getElementById('highlight-renovated-text');
+        const highlightCouplesTitle = document.getElementById('highlight-couples-title');
+        const highlightCouplesText = document.getElementById('highlight-couples-text');
+        const galleryEyebrow = document.getElementById('gallery-eyebrow');
+        const galleryTitle = document.getElementById('gallery-title');
+
+        if (heroTitle) heroTitle.innerText = testi[lingua].hero_title;
+        if (heroSubtitle) heroSubtitle.innerText = testi[lingua].hero_subtitle;
+        if (heroBook) heroBook.innerText = testi[lingua].hero_book;
+        if (heroDiscover) heroDiscover.innerText = testi[lingua].hero_discover;
+        if (highlightsSection) highlightsSection.setAttribute('aria-label', testi[lingua].highlights_label);
+        if (highlightMetroTitle) highlightMetroTitle.innerText = testi[lingua].highlight_metro_title;
+        if (highlightMetroText) highlightMetroText.innerText = testi[lingua].highlight_metro_text;
+        if (highlightTerraceTitle) highlightTerraceTitle.innerText = testi[lingua].highlight_terrace_title;
+        if (highlightTerraceText) highlightTerraceText.innerText = testi[lingua].highlight_terrace_text;
+        if (highlightRenovatedTitle) highlightRenovatedTitle.innerText = testi[lingua].highlight_renovated_title;
+        if (highlightRenovatedText) highlightRenovatedText.innerText = testi[lingua].highlight_renovated_text;
+        if (highlightCouplesTitle) highlightCouplesTitle.innerText = testi[lingua].highlight_couples_title;
+        if (highlightCouplesText) highlightCouplesText.innerText = testi[lingua].highlight_couples_text;
+        if (galleryEyebrow) galleryEyebrow.innerText = testi[lingua].gallery_eyebrow;
+        if (galleryTitle) galleryTitle.innerText = testi[lingua].gallery_title;
+
+        const noteIn = document.getElementById('checkin-note');
+        const noteOut = document.getElementById('checkout-note');
+        if (noteIn) noteIn.innerText = testi[lingua].checkin_note;
+        if (noteOut) noteOut.innerText = testi[lingua].checkout_note;
         // Localizza form recensioni
         const lblName = document.getElementById('lbl-rev-name');
         const lblRating = document.getElementById('lbl-rev-rating');
@@ -545,6 +892,8 @@ async function trackPageView() {
         const selezione = document.getElementById("categoria").value;
         selezionaCategoria(selezione);
         mostraSezione('home');
+        validaOrari();
+        aggiornaRiepilogoPrenotazione();
       };
 
       function sanitize(str) {
@@ -563,26 +912,217 @@ async function trackPageView() {
       }
       async function renderReviews() {
         const container = document.getElementById('reviews-list');
+        const avgEl = document.getElementById('reviews-average');
+        const countEl = document.getElementById('reviews-count');
+        const starsEl = document.getElementById('reviews-stars-summary');
         if (!container) return;
+
         container.innerHTML = '';
+
         try {
           const snap = await db.collection('reviews').orderBy('created_at', 'desc').get();
+          const admin = isAdminViewer();
+          let totalRating = 0;
+          let publicReviewCount = 0;
+          let renderedCount = 0;
+
           snap.forEach(doc => {
             const r = doc.data();
-            const stars = '★'.repeat(r.rating || 0) + '☆'.repeat(5 - (r.rating || 0));
+            const status = r.status || 'approved';
+            const isPublic = status === 'approved';
+            if (!admin && !isPublic) return;
+
+            const rating = Math.max(0, Math.min(5, Number(r.rating || 0)));
+            if (isPublic) {
+              totalRating += rating;
+              publicReviewCount += 1;
+            }
+            renderedCount += 1;
+
+            const stars = '★'.repeat(rating) + '☆'.repeat(5 - rating);
             const card = document.createElement('div');
-            card.className = 'review-card';
+            card.className = `review-card review-status-${status}`;
             const dateTxt = formatReviewDate(r.created_at);
+            const statusBadge = status === 'pending'
+              ? '<span class="review-status-badge pending">In attesa</span>'
+              : '<span class="review-status-badge approved">✓ Verificata</span>';
+
             card.innerHTML = `
+              <div class="review-card-top">
+                <div class="review-card-stars">${stars}</div>
+                ${statusBadge}
+              </div>
               <p class="review-text">${sanitize(r.text)}</p>
-              <p class="review-author">— ${sanitize(r.name)} · ${stars}${dateTxt ? ' · ' + dateTxt : ''}</p>
+              <p class="review-author">${sanitize(r.name)}${dateTxt ? ' · ' + dateTxt : ''}</p>
+              <div class="review-admin-actions" style="display:none;">
+                ${status === 'pending' ? `<button type="button" class="btn review-approve-btn">Approva</button>` : ''}
+                <button type="button" class="btn review-edit-btn">Modifica</button>
+                <button type="button" class="btn review-delete-btn">Elimina</button>
+              </div>
             `;
+
+            if (admin) {
+              const actions = card.querySelector('.review-admin-actions');
+              if (actions) actions.style.display = 'flex';
+              const approveBtn = card.querySelector('.review-approve-btn');
+              const editBtn = card.querySelector('.review-edit-btn');
+              const deleteBtn = card.querySelector('.review-delete-btn');
+              if (approveBtn) approveBtn.addEventListener('click', () => approvaRecensione(doc.id));
+              if (editBtn) editBtn.addEventListener('click', () => modificaRecensione(doc.id, r));
+              if (deleteBtn) deleteBtn.addEventListener('click', () => eliminaRecensione(doc.id));
+            }
+
             container.appendChild(card);
           });
+
+          if (!renderedCount) {
+            const empty = document.createElement('div');
+            empty.className = 'reviews-empty';
+            empty.innerHTML = admin
+              ? '<p>Non ci sono recensioni da moderare.</p>'
+              : '<p>Non ci sono ancora recensioni pubblicate. Sii il primo a raccontare la tua esperienza.</p>';
+            container.appendChild(empty);
+          }
+
+          const average = publicReviewCount ? totalRating / publicReviewCount : 0;
+          if (avgEl) avgEl.textContent = publicReviewCount ? average.toFixed(1) : '—';
+          if (countEl) countEl.textContent = publicReviewCount === 1 ? '1 recensione' : `${publicReviewCount} recensioni`;
+          if (starsEl) {
+            const rounded = Math.round(average);
+            starsEl.textContent = publicReviewCount ? `${'★'.repeat(rounded)}${'☆'.repeat(5 - rounded)}` : '☆☆☆☆☆';
+          }
         } catch (err) {
           console.error('Errore nel caricamento recensioni:', err);
+          container.innerHTML = '<div class="reviews-empty"><p>Non è stato possibile caricare le recensioni.</p></div>';
         }
       }
+
+      async function approvaRecensione(reviewId) {
+        if (!isAdminViewer()) return;
+        try {
+          await db.collection('reviews').doc(reviewId).update({
+            status: 'approved',
+            verified: true,
+            approved_at: firebase.firestore.FieldValue.serverTimestamp(),
+            approved_by: auth.currentUser.uid
+          });
+          await renderReviews();
+          await loadAdminDashboard();
+        } catch (err) {
+          console.error('Errore approvazione recensione:', err);
+          alert('Non è stato possibile approvare la recensione.');
+        }
+      }
+
+      async function modificaRecensione(reviewId, reviewData) {
+        if (!isAdminViewer()) return;
+        const nuovoNome = prompt('Nome dell’autore:', reviewData.name || '');
+        if (nuovoNome === null) return;
+        const nuovoTesto = prompt('Testo della recensione:', reviewData.text || '');
+        if (nuovoTesto === null) return;
+        const nuovaValutazione = prompt('Valutazione da 1 a 5:', String(reviewData.rating || 5));
+        if (nuovaValutazione === null) return;
+
+        const rating = Math.max(1, Math.min(5, Number(nuovaValutazione) || 5));
+        if (!nuovoNome.trim() || !nuovoTesto.trim()) {
+          alert('Nome e testo non possono essere vuoti.');
+          return;
+        }
+
+        try {
+          await db.collection('reviews').doc(reviewId).update({
+            name: nuovoNome.trim(),
+            text: nuovoTesto.trim(),
+            rating,
+            edited_at: firebase.firestore.FieldValue.serverTimestamp(),
+            edited_by: auth.currentUser.uid
+          });
+          await renderReviews();
+        } catch (err) {
+          console.error('Errore modifica recensione:', err);
+          alert('Non è stato possibile modificare la recensione.');
+        }
+      }
+
+      async function eliminaRecensione(reviewId) {
+        if (!isAdminViewer()) {
+          alert('Operazione riservata all\'amministratore.');
+          return;
+        }
+
+        const conferma = confirm('Vuoi eliminare definitivamente questa recensione?');
+        if (!conferma) return;
+
+        try {
+          await db.collection('reviews').doc(reviewId).delete();
+          await renderReviews();
+          await loadAdminDashboard();
+        } catch (err) {
+          console.error('Errore eliminazione recensione:', err);
+          alert('Non è stato possibile eliminare la recensione.');
+        }
+      }
+
+      function setupBookingContactForm() {
+        ['booking-name'].forEach(id => {
+          const field = document.getElementById(id);
+          if (!field) return;
+          field.addEventListener('input', updateBookingContactLinks);
+          field.addEventListener('change', updateBookingContactLinks);
+        });
+
+        ['summary-arrival', 'summary-departure', 'summary-nights'].forEach(id => {
+          const target = document.getElementById(id);
+          if (!target) return;
+          new MutationObserver(updateBookingContactLinks).observe(target, {
+            childList: true,
+            characterData: true,
+            subtree: true
+          });
+        });
+
+        [document.getElementById('booking-mail'), document.getElementById('booking-whatsapp')].forEach(link => {
+          if (!link) return;
+          link.addEventListener('click', event => {
+            if (link.classList.contains('disabled')) event.preventDefault();
+          });
+        });
+
+        updateBookingContactLinks();
+      }
+
+      function updateBookingContactLinks() {
+        const mailLink = document.getElementById('booking-mail');
+        const whatsappLink = document.getElementById('booking-whatsapp');
+        if (!mailLink || !whatsappLink) return;
+
+        const name = document.getElementById('booking-name')?.value.trim() || '';
+        const arrival = document.getElementById('summary-arrival')?.textContent.trim() || '—';
+        const departure = document.getElementById('summary-departure')?.textContent.trim() || '—';
+        const nights = document.getElementById('summary-nights')?.textContent.trim() || '—';
+        const datesSelected = arrival !== '—' && departure !== '—';
+
+        const lines = [
+          'Salve,',
+          `vorrei prenotare l'appartamento dal giorno ${arrival} al ${departure}.`,
+          '',
+          'Grazie in anticipo.',
+          '',
+          'Saluti,',
+          name || ''
+        ];
+
+        const body = lines.join('\n');
+        const subject = `Richiesta disponibilità Monica's House Roma - ${arrival}`;
+        mailLink.href = `mailto:Monicashouseroma@gmail.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+        whatsappLink.href = `https://wa.me/?text=${encodeURIComponent(body)}`;
+
+        [mailLink, whatsappLink].forEach(link => {
+          link.classList.toggle('disabled', !datesSelected);
+          link.setAttribute('aria-disabled', datesSelected ? 'false' : 'true');
+        });
+      }
+
       function bindStars() {
         const wrap = document.getElementById('rev-stars');
         if (!wrap) return;
@@ -618,13 +1158,19 @@ async function trackPageView() {
             name,
             rating,
             text,
+            status: 'pending',
+            verified: false,
             created_at: firebase.firestore.FieldValue.serverTimestamp()
           });
           document.getElementById('review-form').reset();
           document.getElementById('rev-rating').value = 5;
           bindStars();
           const success = document.getElementById('rev-success');
-          if (success) { success.style.display = 'block'; setTimeout(()=> success.style.display='none', 4000); }
+          if (success) {
+            success.textContent = 'Grazie! La recensione è stata inviata e sarà pubblicata dopo l’approvazione.';
+            success.style.display = 'block';
+            setTimeout(() => success.style.display = 'none', 5000);
+          }
           renderReviews();
         } catch (err) {
           console.error('Errore durante il salvataggio:', err);
@@ -642,6 +1188,139 @@ async function trackPageView() {
         alert('Le recensioni ora sono salvate su Firebase Firestore. Per cancellarle definitivamente usa la Console Firebase (Firestore → raccolta "reviews").');
       }
 
+      function normalizeDateInput(value) {
+        if (!value) return null;
+        const parts = value.split('-').map(Number);
+        if (parts.length !== 3 || parts.some(Number.isNaN)) return null;
+        return new Date(parts[0], parts[1] - 1, parts[2]);
+      }
+
+      function bookingRangesOverlap(startA, endA, startB, endB) {
+        return startA < endB && startB < endA;
+      }
+
+      async function loadAdminBookings() {
+        if (!isAdminViewer()) return;
+        const list = document.getElementById('admin-bookings-list');
+        if (!list) return;
+        list.innerHTML = '<p>Caricamento prenotazioni…</p>';
+
+        try {
+          const snap = await db.collection('bookings').orderBy('arrival', 'asc').get();
+          const now = new Date();
+          now.setHours(0, 0, 0, 0);
+          const items = [];
+
+          snap.forEach(doc => {
+            const data = doc.data();
+            const arrival = data.arrival && data.arrival.toDate ? data.arrival.toDate() : null;
+            const departure = data.departure && data.departure.toDate ? data.departure.toDate() : null;
+            if (!arrival || !departure || departure < now) return;
+            items.push({ id: doc.id, ...data, arrival, departure });
+          });
+
+          if (!items.length) {
+            list.innerHTML = '<p class="reviews-empty">Nessuna prenotazione futura presente.</p>';
+            return;
+          }
+
+          list.innerHTML = '';
+          items.forEach(item => {
+            const row = document.createElement('article');
+            row.className = 'admin-booking-row';
+            const guest = sanitize(item.guest || item.note || 'Prenotazione');
+            row.innerHTML = `
+              <div>
+                <strong>${guest}</strong>
+                <span>${item.arrival.toLocaleDateString('it-IT')} → ${item.departure.toLocaleDateString('it-IT')}</span>
+              </div>
+              <button type="button" class="btn review-delete-btn">Elimina</button>
+            `;
+            row.querySelector('button').addEventListener('click', () => deleteAdminBooking(item.id));
+            list.appendChild(row);
+          });
+        } catch (error) {
+          console.error('Errore caricamento prenotazioni admin:', error);
+          list.innerHTML = '<p class="reviews-empty">Non è stato possibile caricare le prenotazioni.</p>';
+        }
+      }
+
+      async function addAdminBooking(event) {
+        event.preventDefault();
+        if (!isAdminViewer()) return;
+
+        const arrivalInput = document.getElementById('admin-booking-arrival');
+        const departureInput = document.getElementById('admin-booking-departure');
+        const guestInput = document.getElementById('admin-booking-guest');
+        const message = document.getElementById('admin-booking-message');
+        const arrival = normalizeDateInput(arrivalInput.value);
+        const departure = normalizeDateInput(departureInput.value);
+
+        if (!arrival || !departure || departure <= arrival) {
+          if (message) message.textContent = 'La partenza deve essere successiva all’arrivo.';
+          return;
+        }
+
+        try {
+          const snap = await db.collection('bookings').get();
+          let overlap = false;
+          snap.forEach(doc => {
+            const data = doc.data();
+            const existingArrival = data.arrival && data.arrival.toDate ? data.arrival.toDate() : null;
+            const existingDeparture = data.departure && data.departure.toDate ? data.departure.toDate() : null;
+            if (existingArrival && existingDeparture && bookingRangesOverlap(arrival, departure, existingArrival, existingDeparture)) {
+              overlap = true;
+            }
+          });
+
+          if (overlap) {
+            if (message) message.textContent = 'Esiste già una prenotazione che si sovrappone a queste date.';
+            return;
+          }
+
+          await db.collection('bookings').add({
+            arrival: firebase.firestore.Timestamp.fromDate(arrival),
+            departure: firebase.firestore.Timestamp.fromDate(departure),
+            guest: guestInput.value.trim(),
+            source: 'manual',
+            created_at: firebase.firestore.FieldValue.serverTimestamp(),
+            created_by: auth.currentUser.uid
+          });
+
+          document.getElementById('admin-booking-form').reset();
+          if (message) message.textContent = 'Prenotazione aggiunta correttamente.';
+          await loadOccupancy();
+          renderCalendar();
+          if (typeof loadAdminBookings === 'function') {
+            await loadAdminBookings();
+          }
+          if (typeof loadAdminDashboard === 'function') {
+            await loadAdminDashboard();
+          }
+          await loadAdminBookings();
+          await loadAdminDashboard();
+        } catch (error) {
+          console.error('Errore aggiunta prenotazione:', error);
+          if (message) message.textContent = 'Non è stato possibile aggiungere la prenotazione.';
+        }
+      }
+
+      async function deleteAdminBooking(bookingId) {
+        if (!isAdminViewer()) return;
+        if (!confirm('Vuoi eliminare questa prenotazione?')) return;
+
+        try {
+          await db.collection('bookings').doc(bookingId).delete();
+          await loadOccupancy();
+          renderCalendar();
+          await loadAdminBookings();
+          await loadAdminDashboard();
+        } catch (error) {
+          console.error('Errore eliminazione prenotazione:', error);
+          alert('Non è stato possibile eliminare la prenotazione.');
+        }
+      }
+
       // init widgets when page loads
       document.addEventListener('DOMContentLoaded', () => {
         bindStars();
@@ -649,13 +1328,62 @@ async function trackPageView() {
         if (btnClear) btnClear.style.display = 'none';
         renderReviews();
         trackPageView();
+        initCalendar();
+        setupAdminImport();
+        setupBookingContactForm();
+        // Add event for admin booking form
+        const adminBookingForm = document.getElementById('admin-booking-form');
+        if (adminBookingForm) adminBookingForm.addEventListener('submit', addAdminBooking);
+        // wiring pulsanti admin
+        const btnLogin = document.getElementById('btn-admin-login');
+        const btnLogout = document.getElementById('btn-admin-logout');
+        if (btnLogin) btnLogin.addEventListener('click', adminLogin);
+        if (btnLogout) btnLogout.addEventListener('click', adminLogout);
+
+        auth.onAuthStateChanged((user) => {
+          const isAdmin = !!user && user.uid === ADMIN_UID;
+          if (btnLogin) btnLogin.style.display = isAdmin ? 'none' : 'inline-block';
+          if (btnLogout) btnLogout.style.display = isAdmin ? 'inline-block' : 'none';
+          const box = document.getElementById('admin-import');
+          if (box) box.style.display = isAdmin ? 'block' : 'none';
+
+          const bookingSummary = document.querySelector('.booking-summary-card');
+          if (bookingSummary) bookingSummary.style.display = isAdmin ? 'none' : '';
+
+          const bookingCalendar = document.getElementById('mh-calendar');
+          if (bookingCalendar) {
+            bookingCalendar.setAttribute('aria-disabled', isAdmin ? 'true' : 'false');
+            bookingCalendar.classList.toggle('admin-selection-disabled', isAdmin);
+          }
+
+          if (isAdmin) {
+            selectedStart = null;
+            selectedEnd = null;
+            aggiornaRiepilogoPrenotazione();
+            renderCalendar();
+          }
+
+          renderReviews();
+          if (isAdmin) {
+            loadAdminDashboard();
+            loadAdminBookings();
+          }
+        });
       });
 
     </script>
-      <div id="contatti-fissi" style="text-align: center; margin-top: 20px;">
-        <p>Contatti:<br>
-          <a href="mailto:Monicashouseroma@gmail.com">Monicashouseroma@gmail.com</a>
-        </p>
+      <div id="contatti-fissi" class="home-contact-panel">
+        <p class="section-eyebrow">CONTATTI</p>
+        <h2>Hai bisogno di informazioni?</h2>
+        <p>Scrivici per disponibilità, dettagli sull'appartamento o richieste particolari.</p>
+        <a class="btn btn-primary home-contact-button" href="mailto:Monicashouseroma@gmail.com">Contattaci</a>
+        <p class="home-contact-email">Monicashouseroma@gmail.com</p>
+      </div>
+
+      <!-- Controlli admin -->
+      <div id="admin-controls" class="admin-controls-floating">
+        <button id="btn-admin-login" class="btn admin-button">🔑 Area admin</button>
+        <button id="btn-admin-logout" class="btn admin-button" style="display:none;">Esci admin</button>
       </div>
       <script>
         function mostraSezione(sezione) {
@@ -663,10 +1391,11 @@ async function trackPageView() {
             home: 'sezione-foto',
             foto: 'sezione-foto',
             descrizione: 'sezione-descrizione',
-            recensioni: 'sezione-recensioni'
+            recensioni: 'sezione-recensioni',
+            prenotati: 'sezione-prenotati'
           };
 
-          const sezioni = ['sezione-foto', 'sezione-descrizione', 'sezione-recensioni'];
+          const sezioni = ['sezione-foto', 'sezione-descrizione', 'sezione-recensioni', 'sezione-prenotati'];
           sezioni.forEach(id => {
             const el = document.getElementById(id);
             if (el) el.style.display = 'none';
@@ -675,10 +1404,466 @@ async function trackPageView() {
           const targetId = mappa[sezione] || 'sezione-foto';
           const target = document.getElementById(targetId);
           if (target) target.style.display = 'block';
+          // Mostra/nasconde contatti-fissi solo sulla home/foto
+          const contattiFissi = document.getElementById('contatti-fissi');
+          if (contattiFissi) {
+            contattiFissi.style.display = (targetId === 'sezione-foto') ? 'block' : 'none';
+          }
           const catSel = document.getElementById("categoria-selector");
           if (catSel) {
             catSel.style.display = (targetId === 'sezione-foto') ? 'block' : 'none';
           }
+        }
+
+        let _adjustingBookingFields = false;
+        // ---- Calendar state & rendering ----
+        let calCurrent = new Date();
+        calCurrent.setDate(1);
+        let selectedStart = null; // Date
+        let selectedEnd = null;   // Date
+        const occupiedDates = new Set(); // 'YYYY-MM-DD'
+
+        function ymd(d){
+          const y=d.getFullYear();
+          const m=String(d.getMonth()+1).padStart(2,'0');
+          const day=String(d.getDate()).padStart(2,'0');
+          return `${y}-${m}-${day}`;
+        }
+        function addDays(d, n){ const dd=new Date(d); dd.setDate(dd.getDate()+n); return dd; }
+        function sameDay(a,b){ return a && b && a.getFullYear()===b.getFullYear() && a.getMonth()===b.getMonth() && a.getDate()===b.getDate(); }
+
+        async function loadOccupancy(){
+          occupiedDates.clear();
+          try {
+            const snap = await db.collection('bookings').get();
+            snap.forEach(doc=>{
+              const b = doc.data();
+              const a = b.arrival && b.arrival.toDate ? b.arrival.toDate() : null;
+              const d = b.departure && b.departure.toDate ? b.departure.toDate() : null;
+              if(!a||!d) return;
+              let cur = new Date(a.getFullYear(), a.getMonth(), a.getDate());
+              const cutoff = new Date(d.getFullYear(), d.getMonth(), d.getDate());
+              while(cur < cutoff){ occupiedDates.add(ymd(cur)); cur = addDays(cur,1); }
+            });
+          } catch(e){ /* se non disponibile, lascia set vuoto */ }
+        }
+
+        function isUnavailable(date){ return occupiedDates.has(ymd(date)); }
+        function isInSelectedRange(date){
+          if(!selectedStart || !selectedEnd) return false;
+          const t = date.setHours(0,0,0,0);
+          const s = selectedStart.setHours(0,0,0,0);
+          const e = selectedEnd.setHours(0,0,0,0);
+          return t> s && t< e;
+        }
+
+        function renderCalendar(){
+          const root = document.getElementById('mh-calendar');
+          if(!root) return;
+          root.innerHTML='';
+          const header = document.createElement('div'); header.className='cal-header';
+          const btnPrev = document.createElement('button'); btnPrev.textContent='‹';
+          const btnNext = document.createElement('button'); btnNext.textContent='›';
+          const title = document.createElement('div'); title.style.fontWeight='600';
+          title.textContent = calCurrent.toLocaleDateString(linguaToLocale(lingua), { month:'long', year:'numeric' });
+          header.appendChild(btnPrev); header.appendChild(title); header.appendChild(btnNext);
+          root.appendChild(header);
+
+          const grid = document.createElement('div'); grid.className='cal-grid';
+          const dow = ['L','M','M','G','V','S','D'];
+          for(const d of dow){ const el=document.createElement('div'); el.className='cal-dow'; el.textContent=d; grid.appendChild(el); }
+
+          const firstDay = new Date(calCurrent);
+          const startWeekDay = (firstDay.getDay()+6)%7; // Lun=0
+          const daysInMonth = new Date(calCurrent.getFullYear(), calCurrent.getMonth()+1, 0).getDate();
+          const prevMonth = new Date(calCurrent.getFullYear(), calCurrent.getMonth(), 0).getDate();
+
+          for(let i=startWeekDay-1; i>=0; i--){
+            const d = new Date(calCurrent.getFullYear(), calCurrent.getMonth()-1, prevMonth - i);
+            const cell = document.createElement('div'); cell.className='cal-day outside'; cell.textContent = d.getDate(); grid.appendChild(cell);
+          }
+          const today = new Date();
+          today.setHours(0,0,0,0);
+          for(let i=1;i<=daysInMonth;i++){
+            const d = new Date(calCurrent.getFullYear(), calCurrent.getMonth(), i);
+            const cell = document.createElement('div');
+            const isPast = d < today;
+            const unav = isUnavailable(d) || isPast;
+            cell.className = 'cal-day ' + (unav ? 'unavailable' : 'available selectable');
+            if (isPast) cell.classList.add('past');
+            cell.textContent = i;
+            if (!unav){
+              cell.addEventListener('click', ()=>{
+                if (isAdminViewer()) return;
+                const clickDate = new Date(d.getFullYear(), d.getMonth(), d.getDate());
+                if(!selectedStart || (selectedStart && selectedEnd)){
+                  selectedStart = clickDate;
+                  selectedEnd = null;
+                } else {
+                  if (clickDate < selectedStart) {
+                    selectedEnd = selectedStart;
+                    selectedStart = clickDate;
+                  } else if (clickDate.getTime() === selectedStart.getTime()) {
+                    selectedEnd = null;
+                  } else {
+                    selectedEnd = clickDate;
+                  }
+                }
+                renderCalendar();
+                validaOrari();
+              });
+            }
+            if (sameDay(d, selectedStart) || sameDay(d, selectedEnd)) cell.classList.add('selected');
+            else if (isInSelectedRange(new Date(d))) cell.classList.add('in-range');
+            grid.appendChild(cell);
+          }
+          const cellsSoFar = grid.children.length - 7; // minus header row
+          const filler = (Math.ceil(cellsSoFar/7)*7) - cellsSoFar;
+          for(let i=1;i<=filler;i++){
+            const d = new Date(calCurrent.getFullYear(), calCurrent.getMonth()+1, i);
+            const cell = document.createElement('div'); cell.className='cal-day outside'; cell.textContent = d.getDate(); grid.appendChild(cell);
+          }
+          root.appendChild(grid);
+
+          btnPrev.addEventListener('click', ()=>{ calCurrent.setMonth(calCurrent.getMonth()-1); renderCalendar(); });
+          btnNext.addEventListener('click', ()=>{ calCurrent.setMonth(calCurrent.getMonth()+1); renderCalendar(); });
+        }
+
+        async function initCalendar(){ await loadOccupancy(); renderCalendar(); }
+        function getEffectiveEndDate() {
+          return selectedStart ? (selectedEnd || new Date(selectedStart)) : null;
+        }
+
+        function aggiornaRiepilogoPrenotazione() {
+          const arrivalEl = document.getElementById('summary-arrival');
+          const departureEl = document.getElementById('summary-departure');
+          const nightsEl = document.getElementById('summary-nights');
+          const emptyEl = document.getElementById('summary-empty');
+          const effectiveEnd = getEffectiveEndDate();
+          const locale = linguaToLocale(lingua);
+
+          if (arrivalEl) {
+            arrivalEl.textContent = selectedStart
+              ? selectedStart.toLocaleDateString(locale, { day: '2-digit', month: 'long', year: 'numeric' })
+              : '—';
+          }
+          if (departureEl) {
+            departureEl.textContent = effectiveEnd
+              ? effectiveEnd.toLocaleDateString(locale, { day: '2-digit', month: 'long', year: 'numeric' })
+              : '—';
+          }
+          if (nightsEl) {
+            const nights = selectedStart && effectiveEnd
+              ? Math.round((effectiveEnd - selectedStart) / 86400000)
+              : 0;
+            nightsEl.textContent = selectedStart ? String(Math.max(0, nights)) : '—';
+          }
+          if (emptyEl) {
+            emptyEl.style.display = selectedStart ? 'none' : 'block';
+          }
+        }
+
+        function rangeHasUnavailable(start, end) {
+          if (!start || !end) return false;
+          let cur = new Date(start.getFullYear(), start.getMonth(), start.getDate());
+          const cutoff = new Date(end.getFullYear(), end.getMonth(), end.getDate());
+          while (cur < cutoff) {
+            if (isUnavailable(cur)) return true;
+            cur = addDays(cur, 1);
+          }
+          return false;
+        }
+
+        // aggiorna mailto con date di arrivo e uscita
+        function aggiornaLinkEmail() {
+          const effectiveEnd = getEffectiveEndDate();
+          const arrivo = selectedStart ? `${ymd(selectedStart)}T15:00` : '';
+          const partenza = effectiveEnd ? `${ymd(effectiveEnd)}T10:00` : '';
+          const link = document.getElementById('booking-mail');
+          if (link) {
+            const subject = encodeURIComponent('Richiesta disponibilità — ' + (arrivo ? arrivo.split('T').join(' ') : ''));
+            const body = encodeURIComponent(
+              'Ciao!\nVorrei sapere se l\'appartamento è disponibile per:\n' +
+              `• Arrivo: ${arrivo.split('T').join(' ') || '-'}\n` +
+              `• Uscita: ${partenza.split('T').join(' ') || '-'}\n`
+            );
+            link.href = `mailto:Monicashouseroma@gmail.com?subject=${subject}&body=${body}`;
+          }
+        }
+
+        function setBookingCTAState(enabled) {
+          const link = document.getElementById('booking-mail');
+          if (!link) return;
+          if (enabled) {
+            link.classList.remove('disabled');
+          } else {
+            link.classList.add('disabled');
+          }
+        }
+
+        function validaOrari() {
+          const errArr = document.getElementById('arrival-error');
+          const errDep = document.getElementById('departure-error');
+
+          let validArr = true, validDep = true;
+
+          if (!selectedStart) {
+            validArr = false;
+            if (errArr) { errArr.textContent = 'Seleziona il giorno di arrivo sul calendario.'; errArr.style.display = 'block'; }
+          } else { if (errArr) { errArr.textContent = ''; errArr.style.display = 'none'; } }
+
+          if (selectedEnd && selectedStart && selectedEnd <= selectedStart) {
+            validDep = false;
+            if (errDep) { errDep.textContent = 'Il giorno di uscita deve essere successivo al giorno di arrivo.'; errDep.style.display = 'block'; }
+          } else {
+            validDep = true;
+            if (errDep) { errDep.textContent = ''; errDep.style.display = 'none'; }
+          }
+
+          const effectiveEnd = getEffectiveEndDate();
+          if (validArr && effectiveEnd && rangeHasUnavailable(selectedStart, effectiveEnd)) {
+            validDep = false;
+            if (errDep) {
+              errDep.textContent = 'L’intervallo selezionato comprende almeno un giorno occupato.';
+              errDep.style.display = 'block';
+            }
+          }
+
+          aggiornaRiepilogoPrenotazione();
+
+          const allValid = validArr && validDep;
+          setBookingCTAState(allValid);
+          if (allValid) aggiornaLinkEmail();
+        }
+
+
+
+        function parseDateTimeLocal(val) {
+          // Expects 'YYYY-MM-DDTHH:MM'
+          if (!val || !val.includes('T')) return null;
+          const d = new Date(val);
+          return isNaN(d.getTime()) ? null : d;
+        }
+        // ===== Admin Import Excel → Firestore =====
+        let adminImportHandlersAttached = false;
+function findCol(obj, names){
+  const keys = Object.keys(obj||{});
+  for (const n of names){
+    const k = keys.find(k => k && k.toString().trim().toLowerCase() === n);
+    if (k) return k;
+  }
+  return null;
+}
+
+
+function parseYMD(s){
+  if(!s) return null;
+  const t = s.toString().trim();
+  // Accetta YYYY-MM-DD o DD/MM/YYYY, altrimenti tenta Date()
+  let y,m,d;
+  if (/^\d{4}-\d{2}-\d{2}$/.test(t)){
+    [y,m,d] = t.split('-').map(Number);
+  } else if (/^\d{1,2}\/\d{1,2}\/\d{4}$/.test(t)){
+    const [dd,mm,yy] = t.split('/').map(Number); y=yy; m=mm; d=dd;
+  } else {
+    const dt = new Date(t);
+    if (!isNaN(dt)) return new Date(dt.getFullYear(), dt.getMonth(), dt.getDate());
+    return null;
+  }
+  return new Date(y, (m-1), d);
+}
+
+function atTime(baseDate, hour, minute){
+  return new Date(
+    baseDate.getFullYear(),
+    baseDate.getMonth(),
+    baseDate.getDate(),
+    hour,
+    minute,
+    0,
+    0
+  );
+}
+
+function bookingRangeKey(start, end) {
+  const pad = (value) => String(value).padStart(2, '0');
+  const startKey = `${start.getFullYear()}-${pad(start.getMonth() + 1)}-${pad(start.getDate())}`;
+  const endKey = `${end.getFullYear()}-${pad(end.getMonth() + 1)}-${pad(end.getDate())}`;
+  return `${startKey}|${endKey}`;
+}
+
+async function importBookingsFromWorkbook(wb){
+  const logEl = document.getElementById('import-log');
+  const out = [];
+  try{
+    const sheetName = wb.SheetNames[0];
+    const ws = wb.Sheets[sheetName];
+    const rows = XLSX.utils.sheet_to_json(ws, { raw:false });
+    if (!rows || !rows.length){ out.push('Nessuna riga trovata nel foglio.'); logEl && (logEl.textContent = out.join('\n')); return; }
+
+    // Mapping colonne (case-insensitive)
+    const sample = rows[0];
+    const arrivalKey = findCol(sample, ['arrival','arrivo','checkin','check-in']);
+    const departureKey = findCol(sample, ['departure','uscita','checkout','check-out']);
+    if(!arrivalKey || !departureKey){ out.push('Colonne non trovate. Usa "arrival"/"departure" o "arrivo"/"uscita".'); logEl && (logEl.textContent = out.join('\n')); return; }
+
+    const existingSnap = await db.collection('bookings').get();
+    const existingBookings = [];
+    existingSnap.forEach(doc => {
+      const data = doc.data();
+      const existingArrival = data.arrival && data.arrival.toDate ? data.arrival.toDate() : null;
+      const existingDeparture = data.departure && data.departure.toDate ? data.departure.toDate() : null;
+      if (existingArrival && existingDeparture) {
+        existingBookings.push({ arrival: existingArrival, departure: existingDeparture });
+      }
+    });
+
+    let ok = 0, skipped = 0, rejected = 0;
+    const importedRanges = [];
+    for (let i = 0; i < rows.length; i++) {
+      const r = rows[i];
+      const a = parseYMD(r[arrivalKey]);
+      const d = parseYMD(r[departureKey]);
+      if (!a || !d || !(d > a)) {
+        rejected++;
+        out.push(`Riga ${i+2}: date non valide (arrivo="${r[arrivalKey]}", uscita="${r[departureKey]}")`);
+        continue;
+      }
+
+      const arrival = atTime(a, 15, 0);
+      const departure = atTime(d, 10, 0);
+      const rowKey = bookingRangeKey(arrival, departure);
+
+      const isExactDuplicate = existingBookings.some(b => b.arrival.getTime() === arrival.getTime() && b.departure.getTime() === departure.getTime())
+        || importedRanges.some(b => b.arrival.getTime() === arrival.getTime() && b.departure.getTime() === departure.getTime());
+      if (isExactDuplicate) {
+        skipped++;
+        out.push(`Riga ${i+2}: prenotazione già presente. Saltata.`);
+        continue;
+      }
+
+      const overlapsExisting = existingBookings.some(b => bookingRangesOverlap(arrival, departure, b.arrival, b.departure));
+      const overlapsImported = importedRanges.some(b => bookingRangesOverlap(arrival, departure, b.arrival, b.departure));
+      if (overlapsExisting || overlapsImported) {
+        skipped++;
+        out.push(`Riga ${i+2}: sovrapposizione con prenotazione esistente o importata. Saltata.`);
+        continue;
+      }
+
+      try {
+        await db.collection('bookings').add({
+          arrival: firebase.firestore.Timestamp.fromDate(arrival),
+          departure: firebase.firestore.Timestamp.fromDate(departure),
+          source: 'excel-import',
+          created_at: firebase.firestore.FieldValue.serverTimestamp()
+        });
+        ok++;
+        importedRanges.push({ arrival, departure, key: rowKey });
+      } catch (e) {
+        rejected++;
+        out.push(`Riga ${i+2}: errore salvataggio: ${e && e.message ? e.message : e}`);
+      }
+    }
+
+    out.unshift(
+      `Import completato. Righe totali: ${rows.length}, importate: ${ok}, saltate: ${skipped}, scartate: ${rejected}.`
+    );
+    logEl && (logEl.textContent = out.join('\n'));
+    // ricarica occupazione e aggiorna calendario
+    await loadOccupancy();
+    renderCalendar();
+  } catch(e){
+    out.push('Errore importazione: ' + (e && e.message ? e.message : e));
+    logEl && (logEl.textContent = out.join('\n'));
+  }
+}
+
+    function setupAdminImport(){
+      if (adminImportHandlersAttached) return;
+      adminImportHandlersAttached = true;
+
+      const box = document.getElementById('admin-import');
+      if (!box) return;
+      box.style.display = isAdminViewer() ? 'block' : 'none';
+      const fileInput = document.getElementById('xls-file');
+      const btn = document.getElementById('btn-import');
+      let lastFile = null;
+      if (fileInput){
+        fileInput.onchange = ()=>{ lastFile = fileInput.files && fileInput.files[0] ? fileInput.files[0] : null; };
+      }
+      if (btn){
+        btn.onclick = async ()=>{
+          const logEl = document.getElementById('import-log');
+          if (!lastFile){ logEl && (logEl.textContent = 'Seleziona prima un file.'); return; }
+          try{
+            const data = await lastFile.arrayBuffer();
+            const wb = XLSX.read(data, { type:'array' });
+            logEl && (logEl.textContent = 'Import in corso…');
+            await importBookingsFromWorkbook(wb);
+          }catch(e){ logEl && (logEl.textContent = 'Errore lettura file: ' + (e && e.message ? e.message : e)); }
+        };
+      }
+    }
+
+    function adminLogin(){
+      const email = prompt('Inserisci l\'email admin');
+      if (!email) return;
+
+      const password = prompt('Inserisci la password admin');
+      if (!password) return;
+
+      auth.signInWithEmailAndPassword(email.trim(), password)
+        .then(async (credential) => {
+          if (!credential.user || credential.user.uid !== ADMIN_UID) {
+            await auth.signOut();
+            throw new Error('Utente non autorizzato come amministratore.');
+          }
+
+          alert('Accesso admin effettuato');
+          const login = document.getElementById('btn-admin-login');
+          const logout = document.getElementById('btn-admin-logout');
+          const box = document.getElementById('admin-import');
+          if (login) login.style.display = 'none';
+          if (logout) logout.style.display = 'inline-block';
+          if (box) box.style.display = 'block';
+          setupAdminImport();
+        })
+        .catch((error) => {
+          console.error('Errore login Firebase:', error);
+          alert('Accesso admin non riuscito: ' + (error.message || error.code));
+        });
+    }
+
+function adminLogout(){
+  auth.signOut()
+    .then(() => {
+      alert('Modalità admin disattivata');
+      const login = document.getElementById('btn-admin-login');
+      const logout = document.getElementById('btn-admin-logout');
+      const box = document.getElementById('admin-import');
+      if (login) login.style.display = 'inline-block';
+      if (logout) logout.style.display = 'none';
+      if (box) box.style.display = 'none';
+    })
+    .catch((error) => {
+      console.error('Errore logout Firebase:', error);
+      alert('Errore durante il logout.');
+    });
+}
+
+        const bookingLink = document.getElementById('booking-mail');
+        if (bookingLink) {
+          bookingLink.addEventListener('click', (e) => {
+            // Se non valido, blocca e mostra messaggi
+            if (bookingLink.classList.contains('disabled')) {
+              e.preventDefault();
+              validaOrari();
+              return;
+            }
+            // Se valido, assicura href aggiornato e lascia procedere al mailto
+            validaOrari();
+            // NOTA: nessun preventDefault qui; lasciamo che il link mailto si apra normalmente
+          });
         }
       </script>
 </body>
